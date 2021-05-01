@@ -1,5 +1,9 @@
 package blackjack;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Shoe {
 
 	private Card[] shoe;
@@ -39,18 +43,12 @@ public class Shoe {
 	
 	// Shuffle the shoe
 	public void shuffle() {
-		int i, j; // exchange indexes
 		
-		// Repeat random exchanges a lot of times
-		for(int k = 0; k < 2913; k++) {
-			i = (int) (52*ndecks*Math.random()); // Picks 2 random cards (indexes)
-			j = (int) (52*ndecks*Math.random());
-			
-			// Swap the cards
-			Card temp = shoe[i];
-			shoe[i] = shoe[j];
-			shoe[j] = temp;
-		}
+		List<Card> bufferList = Arrays.asList(shoe);
+
+		Collections.shuffle(bufferList);
+
+		bufferList.toArray(this.shoe);
 		
 		currCard = 0;
 	}
