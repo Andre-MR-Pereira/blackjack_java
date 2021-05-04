@@ -1,16 +1,12 @@
 package blackjack;
 
-public class Player {
-
+public class Player extends Person{
 	private int balance;
-	private int bet;
-	private Hand hand;
 	
 	// Player Constructor
 	public Player(int balance) {
-		this.hand = new Hand();
+		hands.add(new Hand());
 		this.balance = balance;
-		this.bet = 0;
 	}
 	
 	// Gets the current balance
@@ -18,54 +14,65 @@ public class Player {
 		return this.balance;
 	}
 	
-	// Sets the player's bet
-	public void setBet(int b) {
-		this.bet = b;
-	}
-	
-	// Adds a card to the player's hand
-	public void addCardtoHand(Card c) {
-		hand.addCard(c);
-	}
-	
-	// Returns the value of the player's hand
-	public int handValue() {
-		return hand.handTotal();
-	}
-	
 	// Updates balance when the player busts and resets the bet
-	public void update_loss() {
+	public void update_loss(int bet) {
 		balance -= bet;
-		bet = 0;
 	}
 	
 	// Updates balance when the player wins and resets the bet
-	public void update_win() {
+	public void update_win(int bet) {
 		balance += bet;
-		bet = 0;
 	}
 	
 	// Updates balance when the player gets blackjack and resets the bet
-	public void update_bj() {
+	public void update_bj(int bet) {
 		balance += 1.5*bet;
-		bet = 0;
 	}
 	
 	// Resets the bet when player draws (pushes)
-	public void update_draw() {
+	public void update_draw(int bet) {
 		bet = 0;
 	}
 	
-	// Reset the player's hand for the next round
-	public void resetHand() {
-		hand = new Hand();
-	}
-	
 	// Returns the string with the player's hand
-	public String handStr() {
-		String s = "player's hand:" + hand;
-		
+	public String[] handStr() {
+		String[] s=new String[hands.size()];
+		for(int i=0;i<hands.size();i++) {
+			s[i] = "player's hand" + (i+1) +":" + hands.get(i);
+		}
 		return s;
 	}
 	
+	public void insurance(){
+		//verificar se se pode fazer
+		//int insurance_bet=hands.get(0).bet;
+		//problema de ver o rumo do jogo
+	}
+	
+	public void surrender(int bet){
+		//verificar se se pode fazer
+		balance -= bet/2;
+		resetHand();
+	}
+	
+	public void splitting(Hand hand) {
+		if(hands.size()>3) {
+			Card[] buffer=hand.cards;
+			hand.splitHand(buffer[0]);
+			hands.add(new Hand(buffer[1],hand.bet));
+			//problema de ver o rumo do jogo
+		}else {
+			System.out.println("You can´t split more than 4 times");
+		}
+		
+	}
+	
+	public void doubleDown(Hand hand,int amount){
+		if(amount<hand.bet && 9<=hand.handTotal() && 11>=hand.handTotal()) {
+			hand.setBet(hand.bet+amount);
+		}else {
+			System.out.println("You can only double down up to the amount of the original bet");
+		}
+		//problema de ver o rumo do jogo
+	}
 }

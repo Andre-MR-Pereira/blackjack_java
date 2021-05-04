@@ -2,16 +2,40 @@ package blackjack;
 
 public class Hand {
 
-	private Card[] hand;
-	private int ncards;
+	Card[] cards;
+	int bet;
+	int ncards;
 	
 	public Hand() {
-		hand = new Card[12];
+		cards = new Card[12];
 		ncards = 0;
+		bet=0;
 	}
 	
+	public Hand(Card card,int bet) {
+		cards = new Card[12];
+		cards[0]=card;
+		ncards = 1;
+		this.bet=bet;
+	}
+	
+	public void splitHand(Card card) {
+		cards= new Card[12];
+		cards[0]=card;
+		ncards=1;
+	}
+	
+	// Sets the player's bet
+	public void setBet(int b) {
+		this.bet = b;
+	}
+		
 	public void addCard(Card c) {
-		hand[ncards++] = c;
+		cards[ncards++] = c;
+	}
+	
+	public int handSize() {
+		return ncards;
 	}
 	
 	public int handTotal() {
@@ -19,7 +43,7 @@ public class Hand {
 		boolean ace = false;
 		
 		for(int i = 0; i < ncards; i++) {
-			aux = hand[i].getCardvalue();
+			aux = cards[i].getCardvalue();
 			if(aux > 10) {
 				aux = 10;
 			}
@@ -44,7 +68,7 @@ public class Hand {
 				res += " " + "X";
 			}
 			else {
-				res += " " + hand[i];
+				res += " " + cards[i];
 			}
 		}
 		
