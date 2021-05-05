@@ -43,7 +43,7 @@ public class Dealer extends Person{
 	
 	public static void main(String[] args){
 		Dealer dealer= new Dealer();
-		Shoe shoe= new Shoe(4);
+		Shoe shoe= new Shoe(4,60);
 		dealer.dealerTurn(shoe);
 	}
 	

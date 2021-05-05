@@ -9,9 +9,10 @@ public class Shoe {
 	private Card[] shoe;
 	private int ndecks;
 	private int  currCard; // Extra variable to advance through the shoe
+	private int percentage;
 	
 	// Constructor = Fresh Shoe
-	public Shoe(int ndecks) {
+	public Shoe(int ndecks,int percentage) {
 		this.ndecks = ndecks;
 		
 		// Initialize Array of cards
@@ -23,14 +24,16 @@ public class Shoe {
 				shoe[i++] = new Card(face);
 		
 		shuffle();
+		this.percentage=percentage;
 	}
 	
 	// Method that returns the dealt card
 	public Card deal() {
-		
 		if(currCard < 52*ndecks)
 		{
-			return(shoe[currCard++]);
+			Card curr =  shoe[currCard++];
+			if ((float)currCard/((float)52*ndecks)< percentage) shuffle();
+			return(curr);
 		}
 		else
 		{
@@ -39,16 +42,21 @@ public class Shoe {
 			return(null);
 		}
 		
+		
 	}
 	
 	// Shuffle the shoe
 	public void shuffle() {
+		
+		System.out.println("shuffling the shoe...");
 		
 		List<Card> bufferList = Arrays.asList(shoe);
 
 		Collections.shuffle(bufferList);
 
 		bufferList.toArray(this.shoe);
+		
+		
 		
 		currCard = 0;
 	}

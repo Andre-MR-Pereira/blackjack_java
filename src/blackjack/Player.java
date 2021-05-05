@@ -2,11 +2,13 @@ package blackjack;
 
 public class Player extends Person{
 	private double balance;
-	
+	int min_bet, max_bet;
 	// Player Constructor
-	public Player(double balance) {
+	public Player(double balance,int min_bet, int max_bet) {
 		hands.add(new Hand());
 		this.balance = balance;
+		this.min_bet = min_bet;
+		this.max_bet = max_bet;
 	}
 	
 	// Gets the current balance
@@ -77,7 +79,7 @@ public class Player extends Person{
 	}
 	
 	public static void main(String[] args){
-		Player Andre= new Player(1000);
-		Player Joo= new Player(505.75);
+		Player Andre= new Player(1000,0,0);
+		Player Joo= new Player(505.75,0,0);
 	}
 }
