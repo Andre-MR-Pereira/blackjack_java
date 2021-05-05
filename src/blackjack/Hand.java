@@ -67,12 +67,14 @@ public class Hand {
 	
 	public String toString(boolean hideCard) {
 		String res = "";	
-		
 		for(int i = 0; i < ncards; i++) {
+
 			if(hideCard && i == ncards-1) {
+				
 				res += " " + "X";
 			}
 			else {
+				
 				res += " " + cards[i];
 			}
 		}

@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Person {
-	List<Hand> hands= new ArrayList<Hand>();
+	ArrayList<Hand> hands= new ArrayList<Hand>();
 	
 	// Adds a card to the dealer's hand
-	public void hit(Card c) {
-		for(int i=0;i<hands.size();i++) {
-			hands.get(i).addCard(c);	
-		}
+	public void hit(Card c,int hand_number) {
+		
+			hands.get(hand_number).addCard(c);	
 		
 	}
 		
