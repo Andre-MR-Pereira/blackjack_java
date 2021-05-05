@@ -1,7 +1,6 @@
 package blackjack;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Person {
 	ArrayList<Hand> hands= new ArrayList<Hand>();

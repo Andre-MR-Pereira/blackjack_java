@@ -49,6 +49,11 @@ public class game {
 			System.out.println("dealer's hand "+ casino.hands.get(0));
 			casino.dealerTurn(s);
 			
+			// Falta dar print ao resultado do jogo (WLD) e ao balance do player
+			
+			// Reset hands
+			casino.resetHand();
+			player1.resetHand();
 		}
 		in.close();	
 		

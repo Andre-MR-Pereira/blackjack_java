@@ -86,6 +86,7 @@ public class Hand {
 		return this.toString(false);
 	}
 	
+	/* Tentativa de main?
 	public static void main(String[] args){
 		Hand hand1=new Hand();
 		Hand hand2=new Hand(new Card(1),5);
@@ -104,4 +105,5 @@ public class Hand {
 		hand2.addCard(new Card(3));
 		System.out.println(hand2.handTotal());
 	}
+	*/
 }

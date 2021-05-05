@@ -19,9 +19,10 @@ public class Shoe {
 		shoe = new Card[52*ndecks];
 		
 		int i = 0;
-		for(int suit = 0; suit < 4*ndecks; suit++) // (Colocar naipes caso necessário)
-			for(int face = 1; face <= 13; face++)
-				shoe[i++] = new Card(face);
+		for (int j = 0; j < ndecks; j++)
+			for(int suit = 1; suit < 5; suit++)
+				for(int face = 1; face <= 13; face++)
+					shoe[i++] = new Card(face, suit);
 		
 		shuffle();
 		this.percentage=percentage;

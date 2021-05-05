@@ -78,8 +78,9 @@ public class Player extends Person{
 		//problema de ver o rumo do jogo
 	}
 	
+	/* Tentativa de main
 	public static void main(String[] args){
 		Player Andre= new Player(1000,0,0);
 		Player Joo= new Player(505.75,0,0);
-	}
+	} */
 }
