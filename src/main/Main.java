@@ -6,6 +6,7 @@ import blackjack.*;
 public class Main {
 	
 	public static void main(String[] args){
+		game g = new game();
 		error_catcher er = new error_catcher();
 		int min_bet, max_bet, balance, shoe, shuffle,s_shuffle;
 		int count = args.length;
@@ -22,11 +23,15 @@ public class Main {
             	shuffle = Integer.parseInt(args[5]);
             	er.money_valid(min_bet,max_bet,balance);
             	er.shoe_valid(shoe, shuffle);
+            	
+            	g.interactivestart(min_bet, max_bet, balance, shoe, shuffle);
                 
             } catch (NumberFormatException e) {
                 System.err.println("Arguments " + args[1]+ ", " + args[2]+ ", "+  args[3]+ ", " + args[4]+ "and " + args[5]+ " must be an integer.");
                 System.exit(1);
             }
+            
+           
             
 
         }
