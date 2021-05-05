@@ -18,7 +18,7 @@ public abstract class Person {
 	public int[] handValue() {
 		int [] result=new int[hands.size()];
 		for(int i=0;i<hands.size();i++) {
-			result[i]=hands.get(i).handTotal();	
+			result[i]=hands.get(i).handTotal();
 		}
 		return result;
 	}

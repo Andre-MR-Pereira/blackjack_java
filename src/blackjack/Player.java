@@ -1,36 +1,36 @@
 package blackjack;
 
 public class Player extends Person{
-	private int balance;
+	private double balance;
 	
 	// Player Constructor
-	public Player(int balance) {
+	public Player(double balance) {
 		hands.add(new Hand());
 		this.balance = balance;
 	}
 	
 	// Gets the current balance
-	public int getBalance() {
+	public double getBalance() {
 		return this.balance;
 	}
 	
 	// Updates balance when the player busts and resets the bet
-	public void update_loss(int bet) {
+	public void update_loss(float bet) {
 		balance -= bet;
 	}
 	
 	// Updates balance when the player wins and resets the bet
-	public void update_win(int bet) {
+	public void update_win(float bet) {
 		balance += bet;
 	}
 	
 	// Updates balance when the player gets blackjack and resets the bet
-	public void update_bj(int bet) {
+	public void update_bj(float bet) {
 		balance += 1.5*bet;
 	}
 	
 	// Resets the bet when player draws (pushes)
-	public void update_draw(int bet) {
+	public void update_draw(float bet) {
 		bet = 0;
 	}
 	
@@ -49,7 +49,7 @@ public class Player extends Person{
 		//problema de ver o rumo do jogo
 	}
 	
-	public void surrender(int bet){
+	public void surrender(float bet){
 		//verificar se se pode fazer
 		balance -= bet/2;
 		resetHand();
@@ -67,12 +67,17 @@ public class Player extends Person{
 		
 	}
 	
-	public void doubleDown(Hand hand,int amount){
+	public void doubleDown(Hand hand,float amount){
 		if(amount<hand.bet && 9<=hand.handTotal() && 11>=hand.handTotal()) {
 			hand.setBet(hand.bet+amount);
 		}else {
 			System.out.println("You can only double down up to the amount of the original bet");
 		}
 		//problema de ver o rumo do jogo
+	}
+	
+	public static void main(String[] args){
+		Player Andre= new Player(1000);
+		Player Joo= new Player(505.75);
 	}
 }
