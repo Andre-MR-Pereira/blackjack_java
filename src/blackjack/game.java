@@ -185,7 +185,5 @@ public class game {
 			player1.resetHand();
 		}
 		in.close();	
-		
 	}
-	
 }
