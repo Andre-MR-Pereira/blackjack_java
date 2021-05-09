@@ -34,20 +34,21 @@ public class game {
 			}else {
 				if(temp.length()==1) {
 					input = temp.charAt(0);
+					if(input=='q') {
+						System.out.println("bye");
+						System.exit(0);
+					}
 					valid = true;
 					i = 0;
 				}
 				else {		
 					System.out.println("no input found");
 					}
-				
 			}				
 		
 		return i;
 	}
-	public void show_Balance() {
-		
-	}
+
 	
 	public game() {
 		// TODO Auto-generated constructor stub
@@ -58,25 +59,39 @@ public class game {
 		Dealer casino = new Dealer();
 		Player player1 = new Player(balance,min_bet,max_bet);
 		Scanner in = new Scanner(System.in);
+		int win = 0;
 		int state = 0;
-		int bet =0; 
+		int bet =min_bet, temp_bet=0; 
 		boolean in_game= true, in_play = true;
 		while(in_game) {
 			in_play = true;
 			valid = false;
 			while(!valid){
-				bet=read_String();
+				temp_bet=read_String();
 				if(valid) {
 					if(input=='b') {
-						player1.hands.get(0).setBet(bet);
-						System.out.println("player is betting "+bet);
+						
+						if (temp_bet == 0) {
+							 temp_bet=bet;
+						}
+						if (temp_bet < min_bet || temp_bet> max_bet|| temp_bet> balance) {
+							valid = false;
+							System.out.println("invalid bet ammount ");
+							
+						}
+						else {
+							bet =temp_bet;
+							player1.hands.get(0).setBet(bet);
+							System.out.println("player is betting "+bet);
+						}
 					}
 					else if (input=='$') {
-						show_Balance();
+						System.out.println("player current balance is " + player1.getBalance());
 						valid = false;
 					}
 					else {
 						System.out.println(input+":invalid input");
+						valid = false;
 					}
 				}
 			}
@@ -91,7 +106,7 @@ public class game {
 						player1.hit(s.deal(),0);
 					}
 					else if (input=='$') {
-						show_Balance();
+						System.out.println("player current balance is " + player1.getBalance());
 						valid = false;
 					}
 					else {
@@ -104,6 +119,7 @@ public class game {
 			
 			System.out.println("dealer's hand "+ casino.hands.get(0).toString(true));
 			System.out.println("player's hand "+ player1.hands.get(0)+" ("+player1.handValue()[0]+")");
+			if(player1.handValue()[0]==21) System.out.println("blackjack!!");
 			
 			while(in_play) {
 				valid = false;
@@ -116,33 +132,53 @@ public class game {
 							if(player1.handValue()[0]>21) {
 								
 								System.out.println("player busts");
+								System.out.println("dealer's hand "+ casino.hands.get(0));
 								in_play = false;
+								win = 0;
 							}
 						}
 						else if (input=='$') {
-							show_Balance();
+							System.out.println("player current balance is " + player1.getBalance());
 							valid = false;
 						}
 						else if(input == 's'){
 							System.out.println("player stands");
+							casino.dealerTurn(s);
 							in_play = false;
+							if(player1.handValue()[0]>casino.handValue()[0]||casino.handValue()[0]>21) win = 1;
+							else if (player1.handValue()[0]<casino.handValue()[0]) win = 0;
+							else if (player1.handValue()[0]==21) win = 3;
+							else	win = 2;
 						}
 						else {
 							System.out.println(input+":invalid input");
 							valid = false;
+							
 						}
 					}
 				}
-				
-				
-				
-				
+							
 			}
 			in_play = true;
-			System.out.println("dealer's hand "+ casino.hands.get(0));
-			casino.dealerTurn(s);
 			
-			// Falta dar print ao resultado do jogo (WLD) e ao balance do player
+			if(win == 1) {
+				player1.update_win(0);
+				System.out.println("player wins and his current balance is " + player1.getBalance());
+				
+			}
+			else if(win == 0) {
+				player1.update_loss(0);
+				System.out.println("player loses and his current balance is " + player1.getBalance());
+				
+			}
+			else if(win == 3) {
+				player1.update_bj(0);
+				System.out.println("player wins and his current balance is " + player1.getBalance());
+				
+			}
+			else
+				System.out.println("player pushes and his current balance is " + player1.getBalance());
+			
 			
 			// Reset hands
 			casino.resetHand();

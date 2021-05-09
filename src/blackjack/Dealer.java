@@ -32,11 +32,13 @@ public class Dealer extends Person{
 			System.out.println("dealer busts");
 		}
 		else {
-			System.out.println(this.handStr(false) + " (" + this.handValue()[0]+")");
-			System.out.println("dealer stands");
-			
 			if(flag_BJ)
 				System.out.println("blackjack!!");
+			else {
+			System.out.println(this.handStr(false) + " (" + this.handValue()[0]+")");
+			System.out.println("dealer stands");
+			}
+			
 		}
 		
 	}

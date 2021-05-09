@@ -1,10 +1,10 @@
 package blackjack;
 
 public class Player extends Person{
-	private double balance;
+	private int balance;
 	int min_bet, max_bet;
 	// Player Constructor
-	public Player(double balance,int min_bet, int max_bet) {
+	public Player(int balance,int min_bet, int max_bet) {
 		hands.add(new Hand());
 		this.balance = balance;
 		this.min_bet = min_bet;
@@ -17,24 +17,20 @@ public class Player extends Person{
 	}
 	
 	// Updates balance when the player busts and resets the bet
-	public void update_loss(float bet) {
-		balance -= bet;
+	public void update_loss(int i) {
+		balance -= hands.get(i).bet;
 	}
 	
 	// Updates balance when the player wins and resets the bet
-	public void update_win(float bet) {
-		balance += bet;
+	public void update_win(int i) {
+		balance += hands.get(i).bet;
 	}
 	
 	// Updates balance when the player gets blackjack and resets the bet
-	public void update_bj(float bet) {
-		balance += 1.5*bet;
+	public void update_bj(int i) {
+		balance += 1.5*hands.get(i).bet;
 	}
 	
-	// Resets the bet when player draws (pushes)
-	public void update_draw(float bet) {
-		bet = 0;
-	}
 	
 	// Returns the string with the player's hand
 	public String[] handStr() {
@@ -51,9 +47,9 @@ public class Player extends Person{
 		//problema de ver o rumo do jogo
 	}
 	
-	public void surrender(float bet){
+	public void surrender(int i){
 		//verificar se se pode fazer
-		balance -= bet/2;
+		balance -= hands.get(i).bet/2;
 		resetHand();
 	}
 	

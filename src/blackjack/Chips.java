@@ -31,7 +31,6 @@ public class Chips {
 		}else {
 			System.out.println(bet);
 			System.out.println(100*blacks+25*greens+5*reds+whites);
-			System.out.println("Invalid");
 			return false;
 		}
 		
