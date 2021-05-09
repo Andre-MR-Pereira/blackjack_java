@@ -1,6 +1,18 @@
 package blackjack;
-import java.util.Scanner;
+
 public class game {
+	
+	public void interactivestart(int min_bet, int max_bet,int balance,int shoe,int shuffle) {
+		Shoe s = new Shoe(shoe,shuffle);
+		Dealer casino = new Dealer();
+		Player player1 = new Player(balance,min_bet,max_bet);
+		StateContext flow = new StateContext(min_bet);
+		
+		while(true) {
+			flow.handle_input(player1,casino, s);
+		}
+	}
+	/*
 	String temp;
 	char input;
 	boolean valid;
@@ -50,9 +62,6 @@ public class game {
 	}
 
 	
-	public game() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	public void interactivestart(int min_bet, int max_bet,int balance,int shoe,int shuffle) {
 		Shoe s = new Shoe(shoe,shuffle);
@@ -60,7 +69,6 @@ public class game {
 		Player player1 = new Player(balance,min_bet,max_bet);
 		Scanner in = new Scanner(System.in);
 		int win = 0;
-		int state = 0;
 		int bet =min_bet, temp_bet=0; 
 		boolean in_game= true, in_play = true;
 		while(in_game) {
@@ -179,11 +187,12 @@ public class game {
 			else
 				System.out.println("player pushes and his current balance is " + player1.getBalance());
 			
-			
+			s.check();
 			// Reset hands
 			casino.resetHand();
 			player1.resetHand();
 		}
 		in.close();	
-	}
+	}*/
+	
 }

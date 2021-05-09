@@ -33,7 +33,6 @@ public class Shoe {
 		if(currCard < 52*ndecks)
 		{
 			Card curr =  shoe[currCard++];
-			if ((float)currCard/((float)52*ndecks)> percentage) shuffle();
 			return(curr);
 		}
 		else
@@ -45,6 +44,12 @@ public class Shoe {
 		
 		
 	}
+	
+	public void check() {
+		if ((float)currCard/((float)52*ndecks)> percentage) shuffle();
+	}
+	
+	
 	
 	// Shuffle the shoe
 	public void shuffle() {

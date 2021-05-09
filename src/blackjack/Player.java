@@ -1,8 +1,8 @@
 package blackjack;
 
 public class Player extends Person{
-	private int balance;
-	int min_bet, max_bet;
+
+	int min_bet, max_bet, balance;
 	// Player Constructor
 	public Player(int balance,int min_bet, int max_bet) {
 		hands.add(new Hand());
