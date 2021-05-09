@@ -43,7 +43,10 @@ public class game {
 				
 			}				
 		
-		return 0;
+		return i;
+	}
+	public void show_Balance() {
+		
 	}
 	
 	public game() {
@@ -55,43 +58,84 @@ public class game {
 		Dealer casino = new Dealer();
 		Player player1 = new Player(balance,min_bet,max_bet);
 		Scanner in = new Scanner(System.in);
-		char input;
+		int state = 0;
 		int bet =0; 
 		boolean in_game= true, in_play = true;
 		while(in_game) {
-			
+			in_play = true;
 			valid = false;
 			while(!valid){
 				bet=read_String();
-				if (bet == -1) {	
-					valid = false;
-					System.out.println("No bet detected");
-				}	
-			}
-			player1.hands.get(0).setBet(bet);
-			casino.hit(s.deal(),0);
-			casino.hit(s.deal(),0);
-			player1.hit(s.deal(),0);
-			player1.hit(s.deal(),0);
-			System.out.println("dealer's hand "+ casino.hands.get(0).toString(true));
-			System.out.println("player's hand "+ player1.hands.get(0)+" ("+player1.handValue()[0]+")");
-			while(in_play) {
-				
-				input = in.next().charAt(0);
-				
-				if(input == 'h') {
-					player1.hit(s.deal(),0);
-					System.out.println("player's hand "+ player1.hands.get(0) + " ("+player1.handValue()[0]+")");
-					if(player1.handValue()[0]>21) {
-						
-						System.out.println("player busts");
-						in_play = false;
+				if(valid) {
+					if(input=='b') {
+						player1.hands.get(0).setBet(bet);
+						System.out.println("player is betting "+bet);
+					}
+					else if (input=='$') {
+						show_Balance();
+						valid = false;
+					}
+					else {
+						System.out.println(input+":invalid input");
 					}
 				}
-				else {
-					System.out.println("player stands");
-					in_play = false;
+			}
+			valid = false;
+			while(!valid){
+				bet=read_String();
+				if(valid) {
+					if(input=='d') {
+						casino.hit(s.deal(),0);
+						casino.hit(s.deal(),0);
+						player1.hit(s.deal(),0);
+						player1.hit(s.deal(),0);
+					}
+					else if (input=='$') {
+						show_Balance();
+						valid = false;
+					}
+					else {
+						System.out.println(input+":invalid input");
+						valid = false;
+					}
 				}
+			}
+			
+			
+			System.out.println("dealer's hand "+ casino.hands.get(0).toString(true));
+			System.out.println("player's hand "+ player1.hands.get(0)+" ("+player1.handValue()[0]+")");
+			
+			while(in_play) {
+				valid = false;
+				while(!valid){
+					bet=read_String();
+					if(valid) {
+						if(input == 'h') {
+							player1.hit(s.deal(),0);
+							System.out.println("player's hand "+ player1.hands.get(0) + " ("+player1.handValue()[0]+")");
+							if(player1.handValue()[0]>21) {
+								
+								System.out.println("player busts");
+								in_play = false;
+							}
+						}
+						else if (input=='$') {
+							show_Balance();
+							valid = false;
+						}
+						else if(input == 's'){
+							System.out.println("player stands");
+							in_play = false;
+						}
+						else {
+							System.out.println(input+":invalid input");
+							valid = false;
+						}
+					}
+				}
+				
+				
+				
 				
 			}
 			in_play = true;
