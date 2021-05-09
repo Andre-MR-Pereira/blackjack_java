@@ -27,7 +27,6 @@ public class Chips {
 		int reds=(int)Math.floor((bet-100*blacks-25*greens)/5);
 		int whites=(int)bet-100*blacks-25*greens-5*reds;
 		if(bet==100*blacks+25*greens+5*reds+whites) {
-			System.out.println("Valid");
 			return true;
 		}else {
 			System.out.println(bet);
