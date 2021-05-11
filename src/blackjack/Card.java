@@ -9,6 +9,13 @@ public class Card {
 		this.value = face;
 		this.suit = suit;
 	}
+    
+    public int handValue() {
+        if(value > 10) {
+            return 10;
+        }
+        return value;
+    }    
 	
 	public String getCardface() {
 

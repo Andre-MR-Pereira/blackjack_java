@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args){
 		game g = new game();
 		error_catcher er = new error_catcher();
-		int min_bet, max_bet, balance, shoe, shuffle,s_shuffle;
+		int min_bet, max_bet, balance, shoe, shuffle, s_shuffle;
 		int count = args.length;
 		if (args[0].equals("-i")){
 			if (count!=6) {

@@ -54,22 +54,26 @@ public class Player extends Person{
 	}
 	
 	public void splitting(Hand hand) {
-		if(hands.size()>3) {
-			Card[] buffer=hand.cards;
-			hand.splitHand(buffer[0]);
-			hands.add(new Hand(buffer[1],hand.bet));
-			//problema de ver o rumo do jogo
-		}else {
-			System.out.println("You can´t split more than 4 times");
-		}
-		
-	}
+        if(hands.size() < 4) {
+            Card[] buffer = hand.cards;
+            hand.splitHand();
+            hands.add(new Hand(buffer[1],hand.bet));
+            //problema de ver o rumo do jogo
+        } else {
+            System.out.println("You can´t split more than 4 times");
+        }
+        
+    }
 	
-	public void doubleDown(Hand hand,float amount){
-		if(amount<hand.bet && 9<=hand.handTotal() && 11>=hand.handTotal()) {
-			hand.setBet(hand.bet+amount);
-		}else {
-			System.out.println("You can only double down up to the amount of the original bet");
+	public void doubleDown(Hand hand){
+		if(hand.handSize() > 2) {
+			System.out.println("You can only double down with your opening hand!");
+			return;
+		}
+		if(9 <= hand.handTotal() && 11 >= hand.handTotal()) {
+			hand.setBet(hand.bet*2);
+		} else {
+			System.out.println("You can only double down when your opening hand is worth 9, 10 or 11");
 		}
 		//problema de ver o rumo do jogo
 	}

@@ -6,27 +6,37 @@ public class Hand {
 	int ncards;
 	Chips chips;
 	
-	public Hand() {
-		cards = new Card[12];
-		ncards = 0;
-		bet=0;
-		chips= new Chips(0,0,0,0);
-	}
+	public Hand() {        //regular hand
+        cards = new Card[12];
+        ncards = 0;
+        bet=0;
+        chips= new Chips(0,0,0,0);
+    }
+    
+    public Hand(Card card,double bet) {    //splitting hands
+        cards = new Card[12];
+        cards[0]=card;
+        ncards = 1;
+        this.bet=bet;
+        chips= new Chips(0,0,0,0);
+        chips.convert_chips(bet);
+    }
+    
+    public Hand(Card card1,Card card2) {    //opening hands
+        cards = new Card[12];
+        cards[0]=card1;
+        cards[1]=card2;
+        ncards = 2;
+    }
 	
-	public Hand(Card card,double bet) {
-		cards = new Card[12];
-		cards[0]=card;
-		ncards = 1;
-		this.bet=bet;
-		chips= new Chips(0,0,0,0);
-		chips.convert_chips(bet);
-	}
-	
-	public void splitHand(Card card) {
-		cards= new Card[12];
-		cards[0]=card;
-		ncards=1;
-	}
+    public void splitHand() {
+        if(this.handType()==2) {
+            Card buffer= cards[0];
+            cards= new Card[12];
+            cards[0]=buffer;
+            ncards=1;
+        }
+    }
 	
 	// Sets the player's bet
 	public void setBet(double b) {
@@ -42,6 +52,29 @@ public class Hand {
 	public int handSize() {
 		return ncards;
 	}
+	
+	public int handType() {
+        int no_aces=1;
+        
+        if(ncards==2 && cards[0].getCardface().equals(cards[1].getCardface())) {
+            if(cards[0].getCardface().equals("A")) {
+                return -2;
+            }
+            return 2; //pair hand
+        }
+        
+        for(int i=0;i<ncards;i++) {
+            if(cards[i].getCardface().equals("A")) {
+                no_aces=0;
+            }
+        }
+        
+        if(no_aces==0 && this.handTotal()>10) {
+            return 1; //soft hand
+        } else {
+            return 0; //hard hand
+        }
+    }
 	
 	public int handTotal() {
 		int total = 0, aux;
@@ -86,24 +119,42 @@ public class Hand {
 		return this.toString(false);
 	}
 	
-	/* Tentativa de main?
+	/*
 	public static void main(String[] args){
-		Hand hand1=new Hand();
-		Hand hand2=new Hand(new Card(1),5);
-		hand1.setBet(1);
-		hand1.setBet(5);
-		hand1.setBet(0.5);
-		hand1.addCard(new Card(10));
-		hand1.addCard(new Card(5));
-		System.out.println(hand1.handSize());
-		System.out.println(hand2.handSize());
-		System.out.println(hand1.handTotal());
-		System.out.println(hand2.handTotal());
-		hand1.splitHand(new Card(7));
-		System.out.println(hand1.handTotal());
-		hand2.addCard(new Card(9));
-		hand2.addCard(new Card(3));
-		System.out.println(hand2.handTotal());
-	}
-	*/
+        Hand hand1=new Hand();
+        Hand hand2=new Hand(new Card(1,1),5);
+        Hand hand3=new Hand();
+        Hand hand4=new Hand();
+        hand3.addCard(new Card(1,1));
+        hand3.addCard(new Card(1,1));
+        hand4.addCard(new Card(7,1));
+        hand4.addCard(new Card(7,1));
+        hand1.setBet(1);
+        hand1.setBet(5);
+        hand1.setBet(0.5);
+        hand1.addCard(new Card(10,1));
+        hand1.addCard(new Card(5,1));
+        System.out.println("Tamanho mao");
+        System.out.println(hand1.handSize());
+        System.out.println(hand2.handSize());
+        System.out.println("Valor mao");
+        System.out.println(hand1.handTotal());
+        System.out.println(hand2.handTotal());
+        System.out.println("Split not working");
+        hand1.splitHand();
+        System.out.println(hand1.handTotal());
+        hand2.addCard(new Card(9,1));
+        hand2.addCard(new Card(3,1));
+        System.out.println(hand2.handTotal());
+        System.out.println("Tipos de mao");
+        System.out.println(hand1.handType());
+        System.out.println(hand2.handType());
+        System.out.println(hand3.handType());
+        System.out.println(hand4.handType());
+        System.out.println("Split working");
+        System.out.println(hand4.handTotal());
+        hand4.splitHand();
+        System.out.println(hand4.handTotal());
+    }
+    */
 }

@@ -2,14 +2,12 @@ package blackjack;
 
 import java.util.ArrayList;
 
-public abstract class Person {
+public abstract class Person implements BlackJackPlayer {
 	ArrayList<Hand> hands= new ArrayList<Hand>();
 	
 	// Adds a card to the dealer's hand
 	public void hit(Card c,int hand_number) {
-		
-			hands.get(hand_number).addCard(c);	
-		
+		hands.get(hand_number).addCard(c);	
 	}
 		
 	// Returns the value of the player's hand

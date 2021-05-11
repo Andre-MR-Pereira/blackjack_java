@@ -106,8 +106,6 @@ public class StateContext {
 		
 	}
     
-    
-    
     public void handle_input(Player player1, Dealer casino, Shoe s) {
     	valid = false;
 		while(!valid){
