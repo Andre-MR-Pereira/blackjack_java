@@ -28,6 +28,221 @@ public class HiLo implements Strategies {
 	public void advice(Hand player, Card card_dealer, Shoe shoe) {
 		update_true(shoe);
 		// Illoustrous18 & Fab4 implementation
+		if(player.handTotal()==21){
+			System.out.println("You should stand!");
+		}
+		
+		if(card_dealer.getCardface().equals("A")) {
+			if(player.handTotal()==10) {
+				if(true_count>=4) {
+					System.out.println("You should double!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else if(player.handTotal()==11) {
+				if(true_count>=1) {
+					System.out.println("You should double!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else if(player.handTotal()==15) {
+				if(true_count>=1) {
+					System.out.println("You should surrender!");
+				}else {
+					System.out.println("Take advice from basic strategy");
+				}
+				return;
+			}else {
+				if(true_count>=3) {
+					System.out.println("You should insurance!");
+				}else {
+					System.out.println("Take advice from basic strategy");
+				}
+				return;
+			}
+		}
+		
+		if(card_dealer.getCardface().equals("2")) {
+			if(player.handTotal()==9) {
+				if(true_count>=1) {
+					System.out.println("You should double!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else if(player.handTotal()==12) {
+				if(true_count>=3) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else if(player.handTotal()==13) {
+				if(true_count>=-1) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else {
+				System.out.println("Take advice from basic strategy");
+				return;
+			}
+		}
+		
+		if(card_dealer.getCardface().equals("3")) {
+			if(player.handTotal()==12) {
+				if(true_count>=2) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else if(player.handTotal()==13) {
+				if(true_count>=-2) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else {
+				System.out.println("Take advice from basic strategy");
+				return;
+			}
+		}
+		
+		if(card_dealer.getCardface().equals("4")) {
+			if(player.handTotal()==12) {
+				if(true_count>=0) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else {
+				System.out.println("Take advice from basic strategy");
+				return;
+			}
+		}
+		
+		if(card_dealer.getCardface().equals("5")) {
+			if(player.handTotal()==12) {
+				if(true_count>=-2) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else if(player.handTotal()==20) {
+				if(true_count>=5) {
+					System.out.println("You should split!");
+				}else {
+					System.out.println("You should stand!");
+				}
+				return;
+			}else {
+				System.out.println("Take advice from basic strategy");
+				return;
+			}
+		}
+		
+		if(card_dealer.getCardface().equals("6")) {
+			if(player.handTotal()==12) {
+				if(true_count>=-1) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else if(player.handTotal()==20) {
+				if(true_count>=4) {
+					System.out.println("You should split!");
+				}else {
+					System.out.println("You should stand!");
+				}
+				return;
+			}else {
+				System.out.println("Take advice from basic strategy");
+				return;
+			}
+		}
+		
+		if(card_dealer.getCardface().equals("7")) {
+			if(player.handTotal()==9) {
+				if(true_count>=3) {
+					System.out.println("You should double!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else {
+				System.out.println("Take advice from basic strategy");
+				return;
+			}
+		}
+		
+		if(card_dealer.getCardface().equals("9")) {
+			if(player.handTotal()==15) {
+				if(true_count>=2) {
+					System.out.println("You should surrender!");
+				}else {
+					System.out.println("Take advice from basic strategy");
+				}
+				return;
+			}else if(player.handTotal()==16) {
+				if(true_count>=5) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else {
+				System.out.println("Take advice from basic strategy");
+				return;
+			}
+		}
+		
+		if(card_dealer.handValue()==10) {
+			if(player.handTotal()==10) {
+				if(true_count>=4) {
+					System.out.println("You should double!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else if(player.handTotal()==14) {
+				if(true_count>=3) {
+					System.out.println("You should surrender!");
+				}else {
+					System.out.println("Take advice from basic strategy");
+				}
+				return;
+			}else if(player.handTotal()==15) {
+				if(true_count>=0 || true_count<=3) {
+					System.out.println("You should surrender!");
+				}else if(true_count>=4) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else if(player.handTotal()==16) {
+				if(true_count>=0) {
+					System.out.println("You should stand!");
+				}else {
+					System.out.println("You should hit!");
+				}
+				return;
+			}else {
+				System.out.println("Take advice from basic strategy");
+				return;
+			}
+		}
+		
+		System.out.println("Take advice from basic strategy");
+		
 	}
 
 }
