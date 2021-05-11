@@ -15,7 +15,7 @@ class Game_Stage implements State{
 			}
 		}
 		else if (context.input=='$') {
-			System.out.println("player current balance is " + player1.getBalance());
+			System.out.println("player current balance is " + (int) player1.getBalance());
 			context.setvalid(false);
 		}
 		else if(context.input == 's'){
@@ -32,6 +32,5 @@ class Game_Stage implements State{
 			context.setvalid(false);
 		}
 	}
-		
 
 }

@@ -1,6 +1,6 @@
 package blackjack;
 
-public class Betting_Stage implements State{
+public class Betting_Stage implements State {
 	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s) {
 
 		if(context.input=='b') {
@@ -8,9 +8,9 @@ public class Betting_Stage implements State{
 			if (context.temp_bet == 0) {
 				context.setTempBet(context.bet);
 			}
-			if (context.temp_bet < player1.min_bet || context.temp_bet> player1.max_bet|| context.temp_bet> player1.balance) {
+			if (context.temp_bet < player1.min_bet || context.temp_bet > player1.max_bet || context.temp_bet > player1.balance) {
 				context.setvalid(false);
-				System.out.println("invalid bet ammount ");
+				System.out.println("invalid bet ammount");
 				
 			}
 			else {
@@ -21,9 +21,16 @@ public class Betting_Stage implements State{
 			}
 		}
 		else if (context.input=='$') {
-			System.out.println("player current balance is " + player1.getBalance());
+			System.out.println("player current balance is " + (int) player1.getBalance());
 			context.setvalid(false);
 		}
+		else if(context.input == 'a') {
+			// Ace Five
+		}
+		else if(context.input == 't') {
+			// Imprimir estatísticas
+		}
+		
 		else {
 			System.out.println(context.input+":invalid input");
 			context.setvalid(false);

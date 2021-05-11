@@ -14,7 +14,7 @@ public class Deal_Stage implements State{
 			if(player1.handValue()[0]==21) System.out.println("blackjack!!");
 		}
 		else if (context.input=='$') {
-			System.out.println("player current balance is " + player1.getBalance());
+			System.out.println("player current balance is " + (int) player1.getBalance());
 			context.setvalid(false);
 		}
 		else {
