@@ -11,12 +11,8 @@ public abstract class Person implements BlackJackPlayer {
 	}
 		
 	// Returns the value of the player's hand
-	public int[] handValue() {
-		int [] result=new int[hands.size()];
-		for(int i=0;i<hands.size();i++) {
-			result[i]=hands.get(i).handTotal();
-		}
-		return result;
+	public int handValue(int i) {
+			return hands.get(i).handTotal();
 	}
 	
 	// Reset the player's hand for the next round

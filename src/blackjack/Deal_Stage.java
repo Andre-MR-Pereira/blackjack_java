@@ -2,7 +2,7 @@ package blackjack;
 
 public class Deal_Stage implements State{
 
-	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5) {
+	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand) {
 		if(context.input=='d') {
 			Card temp = null;
 			
@@ -24,20 +24,20 @@ public class Deal_Stage implements State{
 			hl.update_counter(temp);
 			a5.update_counter(temp);
 			
-			context.setState(new Game_Stage());
+			context.setState(new First_Hand_Stage());
 			System.out.println(casino.handStr(true));
-			System.out.println(player1.handStr()[0]);
-			if(player1.handValue()[0]==21) 
+			System.out.println(player1.handStr(0));
+			if(player1.handValue(0)==21) 
 				System.out.println("blackjack!!");
 		}
 		else if (context.input=='$') {
 			System.out.println("player current balance is " + (int) player1.getBalance());
-			context.setvalid(false);
+
 		}
 		else if(context.input == 't') {
 			// Imprimir estatísticas
 			System.out.println("Implementar estatísticas!");
-			context.setvalid(false);
+
 		}
 		else {
 			System.out.println(context.input+": invalid input");

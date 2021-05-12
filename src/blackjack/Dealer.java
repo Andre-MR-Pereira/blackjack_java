@@ -22,20 +22,20 @@ public class Dealer extends Person{
 		}
 		
 		while(hands.get(0).handTotal() <= 16) {
-			System.out.println(this.handStr(false) + " (" + this.handValue()[0]+")");
+			System.out.println(this.handStr(false) + " (" + this.handValue(0)+")");
 			System.out.println("dealer hits");
 			hands.get(0).addCard(shoe.deal());
 		}
 		
 		if(hands.get(0).handTotal() > 21) {
-			System.out.println(this.handStr(false) + " (" + this.handValue()[0]+")");
+			System.out.println(this.handStr(false) + " (" + this.handValue(0)+")");
 			System.out.println("dealer busts");
 		}
 		else {
 			if(flag_BJ)
 				System.out.println("blackjack!!");
 			else {
-			System.out.println(this.handStr(false) + " (" + this.handValue()[0]+")");
+			System.out.println(this.handStr(false) + " (" + this.handValue(0)+")");
 			System.out.println("dealer stands");
 			}
 			

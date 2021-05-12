@@ -33,23 +33,23 @@ public class Player extends Person{
 	
 	
 	// Returns the string with the player's hand
-	public String[] handStr() {
-		String[] s=new String[hands.size()];
+	public String handStr(int i) {
+		String s=new String();
 		if(hands.size() == 1) {
-			s[0] = "player's hand " + hands.get(0) + " (" + this.handValue()[0] + ")";
+			s = "player's hand" + hands.get(0) + " (" + this.handValue(0) + ")";
 		}
 		else {
-			for(int i=0;i<hands.size();i++) {
-				s[i] = "player's hand [" + (i+1) +"] " + hands.get(i) + "(" + this.handValue()[i] + ")";
-			}
+				s = "player's hand [" + (i+1) +"]" + hands.get(i) + " (" + this.handValue(i) + ")";
 		}
 		return s;
 	}
 	
-	public void insurance(){
-		//verificar se se pode fazer
-		//int insurance_bet=hands.get(0).bet;
-		//problema de ver o rumo do jogo
+	public String print_win(int i) {
+		if(hands.size() == 1) return "player " + hands.get(0).winStr() + " and his current balance is " + balance;
+		
+		else return "player's hand [" + (i+1) +"] " + hands.get(i).winStr() + " and his current balance is " + balance;
+			
+		
 	}
 	
 	public void surrender(int i){
@@ -62,7 +62,6 @@ public class Player extends Person{
             Card[] buffer = hand.cards;
             hand.splitHand();
             hands.add(new Hand(buffer[1],hand.bet));
-            //problema de ver o rumo do jogo
         } else {
             System.out.println("You can´t split more than 4 times");
         }
@@ -70,17 +69,11 @@ public class Player extends Person{
     }
 	
 	public void doubleDown(Hand hand){
-		if(hand.handSize() > 2) {
-			System.out.println("You can only double down with your opening hand!");
-			return;
-		}
-		if(9 <= hand.handTotal() && 11 >= hand.handTotal()) {
 			hand.setBet(hand.bet*2);
-		} else {
-			System.out.println("You can only double down when your opening hand is worth 9, 10 or 11");
-		}
+		
 		//problema de ver o rumo do jogo
 	}
+
 	
 	/* Tentativa de main
 	public static void main(String[] args){

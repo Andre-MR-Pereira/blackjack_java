@@ -5,12 +5,14 @@ public class Hand {
 	double bet;
 	int ncards;
 	Chips chips;
+	int win;
 	
 	public Hand() {        //regular hand
         cards = new Card[12];
         ncards = 0;
         bet=0;
         chips= new Chips(0,0,0,0);
+        win = -1;
     }
     
     public Hand(Card card,double bet) {    //splitting hands
@@ -20,6 +22,7 @@ public class Hand {
         this.bet=bet;
         chips= new Chips(0,0,0,0);
         chips.convert_chips(bet);
+        win = -1;
     }
     
     public Hand(Card card1,Card card2) {    //opening hands
@@ -27,15 +30,11 @@ public class Hand {
         cards[0]=card1;
         cards[1]=card2;
         ncards = 2;
+        win = -1;
     }
 	
     public void splitHand() {
-        if(this.handType()==2) {
-            Card buffer= cards[0];
-            cards= new Card[12];
-            cards[0]=buffer;
-            ncards=1;
-        }
+        ncards=1;
     }
 	
 	// Sets the player's bet
@@ -44,9 +43,21 @@ public class Hand {
 			this.bet = b;
 		}
 	}
-		
+	
+	public void setWin(int win) {
+		this.win = win;
+	}
+	
 	public void addCard(Card c) {
 		cards[ncards++] = c;
+	}
+	
+	public String winStr() {
+		if (win == 0) return "loses";
+
+		else if (win == 1 ) return "wins";
+
+		else return "pushes";
 	}
 	
 	public int handSize() {
