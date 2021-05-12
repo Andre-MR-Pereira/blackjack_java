@@ -13,16 +13,16 @@ public class Basic implements Strategies{
     
     public void advice(Hand player,Card card_dealer, Shoe shoe) {
         if(player.handType()==2) {
-            System.out.println("Checked Pair table");
+            // System.out.println("Checked Pair table");
             pair_tb.play(player, card_dealer);
         } else if(player.handType()==1) {
-            System.out.println("Checked Soft table");
+            // System.out.println("Checked Soft table");
             soft_tb.play(player, card_dealer);
         } else if(player.handType()==0) {
-            System.out.println("Checked Hard table");
+            // System.out.println("Checked Hard table");
             hard_tb.play(player, card_dealer);
         } else {
-            System.out.println("The hand provided doesn´t seem to be of any basic type");
+            System.out.println("Basic strategy error!");
         }
     }
 }

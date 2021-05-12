@@ -35,30 +35,30 @@ public class HiLo implements Strategies {
 		if(card_dealer.getCardface().equals("A")) {
 			if(player.handTotal()==10) {
 				if(true_count>=4) {
-					System.out.println("You should double!");
+					System.out.println("hi-lo	double");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else if(player.handTotal()==11) {
 				if(true_count>=1) {
-					System.out.println("You should double!");
+					System.out.println("hi-lo	double");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else if(player.handTotal()==15) {
 				if(true_count>=1) {
-					System.out.println("You should surrender!");
+					System.out.println("hi-lo	surrender");
 				}else {
-					System.out.println("Take advice from basic strategy");
+					System.out.println("hi-lo	basic");
 				}
 				return;
 			}else {
 				if(true_count>=3) {
-					System.out.println("You should insurance!");
+					System.out.println("hi-lo	insurance");
 				}else {
-					System.out.println("Take advice from basic strategy");
+					System.out.println("hi-lo	basic");
 				}
 				return;
 			}
@@ -67,27 +67,27 @@ public class HiLo implements Strategies {
 		if(card_dealer.getCardface().equals("2")) {
 			if(player.handTotal()==9) {
 				if(true_count>=1) {
-					System.out.println("You should double!");
+					System.out.println("hi-lo	double");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else if(player.handTotal()==12) {
 				if(true_count>=3) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else if(player.handTotal()==13) {
 				if(true_count>=-1) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else {
-				System.out.println("Take advice from basic strategy");
+				System.out.println("hi-lo	basic");
 				return;
 			}
 		}
@@ -95,20 +95,20 @@ public class HiLo implements Strategies {
 		if(card_dealer.getCardface().equals("3")) {
 			if(player.handTotal()==12) {
 				if(true_count>=2) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else if(player.handTotal()==13) {
 				if(true_count>=-2) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else {
-				System.out.println("Take advice from basic strategy");
+				System.out.println("hi-lo	basic");
 				return;
 			}
 		}
@@ -116,13 +116,13 @@ public class HiLo implements Strategies {
 		if(card_dealer.getCardface().equals("4")) {
 			if(player.handTotal()==12) {
 				if(true_count>=0) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else {
-				System.out.println("Take advice from basic strategy");
+				System.out.println("hi-lo	basic");
 				return;
 			}
 		}
@@ -130,20 +130,20 @@ public class HiLo implements Strategies {
 		if(card_dealer.getCardface().equals("5")) {
 			if(player.handTotal()==12) {
 				if(true_count>=-2) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else if(player.handTotal()==20) {
 				if(true_count>=5) {
-					System.out.println("You should split!");
+					System.out.println("hi-lo	split");
 				}else {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}
 				return;
 			}else {
-				System.out.println("Take advice from basic strategy");
+				System.out.println("hi-lo	basic");
 				return;
 			}
 		}
@@ -151,20 +151,20 @@ public class HiLo implements Strategies {
 		if(card_dealer.getCardface().equals("6")) {
 			if(player.handTotal()==12) {
 				if(true_count>=-1) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else if(player.handTotal()==20) {
 				if(true_count>=4) {
-					System.out.println("You should split!");
+					System.out.println("hi-lo	split");
 				}else {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}
 				return;
 			}else {
-				System.out.println("Take advice from basic strategy");
+				System.out.println("hi-lo	basic");
 				return;
 			}
 		}
@@ -172,13 +172,13 @@ public class HiLo implements Strategies {
 		if(card_dealer.getCardface().equals("7")) {
 			if(player.handTotal()==9) {
 				if(true_count>=3) {
-					System.out.println("You should double!");
+					System.out.println("hi-lo	double");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else {
-				System.out.println("Take advice from basic strategy");
+				System.out.println("hi-lo	basic");
 				return;
 			}
 		}
@@ -186,20 +186,20 @@ public class HiLo implements Strategies {
 		if(card_dealer.getCardface().equals("9")) {
 			if(player.handTotal()==15) {
 				if(true_count>=2) {
-					System.out.println("You should surrender!");
+					System.out.println("hi-lo	surrender");
 				}else {
-					System.out.println("Take advice from basic strategy");
+					System.out.println("hi-lo	basic");
 				}
 				return;
 			}else if(player.handTotal()==16) {
 				if(true_count>=5) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else {
-				System.out.println("Take advice from basic strategy");
+				System.out.println("hi-lo	basic");
 				return;
 			}
 		}
@@ -207,41 +207,39 @@ public class HiLo implements Strategies {
 		if(card_dealer.handValue()==10) {
 			if(player.handTotal()==10) {
 				if(true_count>=4) {
-					System.out.println("You should double!");
+					System.out.println("hi-lo	double");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else if(player.handTotal()==14) {
 				if(true_count>=3) {
-					System.out.println("You should surrender!");
+					System.out.println("hi-lo	surrender");
 				}else {
-					System.out.println("Take advice from basic strategy");
+					System.out.println("hi-lo	basic");
 				}
 				return;
 			}else if(player.handTotal()==15) {
 				if(true_count>=0 || true_count<=3) {
-					System.out.println("You should surrender!");
+					System.out.println("hi-lo	surrender");
 				}else if(true_count>=4) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else if(player.handTotal()==16) {
 				if(true_count>=0) {
-					System.out.println("You should stand!");
+					System.out.println("hi-lo	stand");
 				}else {
-					System.out.println("You should hit!");
+					System.out.println("hi-lo	hit");
 				}
 				return;
 			}else {
-				System.out.println("Take advice from basic strategy");
+				System.out.println("hi-lo	basic");
 				return;
 			}
 		}
-		
-		System.out.println("Take advice from basic strategy");
 		
 	}
 

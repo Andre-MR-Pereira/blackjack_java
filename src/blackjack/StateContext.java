@@ -32,30 +32,44 @@ public class StateContext {
 							valid = true;
 						}
 						catch(NumberFormatException e) {
-							System.out.println("invalid input");
+							System.out.println("illegal command");
 						}
 					}
 					else {
-						System.out.println("too small for bet input");
+						System.out.println("illegal command");
 					}
 				}
-				else if(temp.equals("ad"))
+				else if(temp.equals("ad")) {
 					input = 'a'; // a for advice
-				else if(temp.equals("st"))
+					valid = true;
+				}
+				else if(temp.equals("st")) {
 					input = 't'; // t for statistics
+					valid = true;
+				}
 				else {
-					System.out.println("not a valid input to search for a int");
+					System.out.println("illegal command");
 				}
 			}
 			else {
 				if(temp.length()==1) {
 					input = temp.charAt(0);
-					if(input=='q') {
+					if(input=='a') {
+						System.out.println(input+": illegal command");
+						valid = false;
+					}
+					else if(input == 't') {
+						System.out.println(input+": illegal command");
+						valid = false;
+					}
+					else if(input=='q') {
 						System.out.println("bye");
 						System.exit(0);
 					}
-					valid = true;
-					i = 0;
+					else {
+						valid = true;
+						i = 0;
+					}
 				}
 				else {
 					System.out.println("no input found");
@@ -113,14 +127,14 @@ public class StateContext {
 		
 	}
     
-    public void handle_input(Player player1, Dealer casino, Shoe s) {
+    public void handle_input(Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5) {
     	valid = false;
 		while(!valid){
 			temp_bet=read_String();
 			if(valid) {	
-				state.handle_input(this, player1, casino, s);
+				state.handle_input(this, player1, casino, s, b, hl, a5);
 			}
 		}
-        
     }
+    
 }

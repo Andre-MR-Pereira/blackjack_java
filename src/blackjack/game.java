@@ -7,9 +7,12 @@ public class game {
 		Dealer casino = new Dealer();
 		Player player1 = new Player(balance,min_bet,max_bet);
 		StateContext flow = new StateContext(min_bet);
+		Basic basic = new Basic();
+		HiLo hl = new HiLo();
+		AceFive a5 = new AceFive(min_bet, max_bet);
 		
 		while(true) {
-			flow.handle_input(player1,casino, s);
+			flow.handle_input(player1,casino, s, basic, hl, a5);
 		}
 	}
 	

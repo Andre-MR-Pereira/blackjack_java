@@ -61,19 +61,19 @@ public class PairTable extends Table{
         
         switch(plays[line][column]) {
         case 0:
-            System.out.println("You should hit!");
+            System.out.println("basic	hit");
             break;
         case 1:
-            System.out.println("You should stand!");
+            System.out.println("basic	stand");
             break;
         case 2:
-            System.out.println("You should split!");
+            System.out.println("basic	split");
             break;
         case 3:
             if(opening.handTotal()>=9 && opening.handTotal()<=11) {
-                System.out.println("You should double!");
+                System.out.println("basic	double");
             }else {
-                System.out.println("You should hit!");
+                System.out.println("basic	hit");
             }
             break;
         default:

@@ -32,12 +32,12 @@ public class AceFive implements Strategies{
 		
 		if(a5_counter >= 2) {
 			if(curr_bet*2 >= max_bet)
-				System.out.println("You should bet the maximum: " + max_bet);
+				System.out.println("ace-five	bet " + max_bet);
 			else 
-				System.out.println("You should double your previous bet: " + curr_bet*2);
+				System.out.println("ace-five	bet " + curr_bet*2);
 		}
 		else if(a5_counter <= 1)
-			System.out.println("You should bet the minimum: " + min_bet);
+			System.out.println("ace-five	bet " + min_bet);
 		else
 			System.out.println("You shoudn't be here! (A5 advice Error)");
 	}

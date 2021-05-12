@@ -9,7 +9,7 @@ public class Dealer extends Person{
 	
 	// Returns the string with the dealer's hand
 	public String handStr(boolean hideCard) {
-		String s = "dealer's hand:" + hands.get(0).toString(hideCard);
+		String s = "dealer's hand " + hands.get(0).toString(hideCard);
 	
 		return s;
 	}
@@ -40,7 +40,6 @@ public class Dealer extends Person{
 			}
 			
 		}
-		
 	}
 	
 	public Card knownCard() {

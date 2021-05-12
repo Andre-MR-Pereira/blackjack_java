@@ -24,4 +24,14 @@ public abstract class Person implements BlackJackPlayer {
 		hands.removeAll(hands);
 		hands.add(new Hand());
 	}
+	
+	// Returns size of hand i
+	public int handSize(int i) {
+		if(hands.size() < i) {
+			return 0;
+		}
+		else {
+			return hands.get(i).handSize();
+		}
+	}
 }

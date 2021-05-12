@@ -35,8 +35,13 @@ public class Player extends Person{
 	// Returns the string with the player's hand
 	public String[] handStr() {
 		String[] s=new String[hands.size()];
-		for(int i=0;i<hands.size();i++) {
-			s[i] = "player's hand" + (i+1) +":" + hands.get(i);
+		if(hands.size() == 1) {
+			s[0] = "player's hand " + hands.get(0) + " (" + this.handValue()[0] + ")";
+		}
+		else {
+			for(int i=0;i<hands.size();i++) {
+				s[i] = "player's hand [" + (i+1) +"] " + hands.get(i) + "(" + this.handValue()[i] + ")";
+			}
 		}
 		return s;
 	}
@@ -48,7 +53,6 @@ public class Player extends Person{
 	}
 	
 	public void surrender(int i){
-		//verificar se se pode fazer
 		balance -= hands.get(i).bet/2;
 		resetHand();
 	}
