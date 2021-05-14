@@ -27,10 +27,6 @@ public class HiLo implements Strategies {
 	
 	public void advice(Hand player, Card card_dealer, Shoe shoe) {
 		update_true(shoe);
-		// Illoustrous18 & Fab4 implementation
-		if(player.handTotal()==21){
-			System.out.println("You should stand!");
-		}
 		
 		if(card_dealer.getCardface().equals("A")) {
 			if(player.handTotal()==10) {

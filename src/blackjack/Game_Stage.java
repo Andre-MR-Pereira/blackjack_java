@@ -44,10 +44,8 @@ class Game_Stage implements State {
 			// Imprimir estatísticas
 			System.out.println("Implementar estatísticas!");
 		}
-		else {
+		else
 			System.out.println(context.input+": invalid input");
-			context.setvalid(false);
-		}
 	}
 
 }

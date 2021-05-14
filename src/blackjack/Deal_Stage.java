@@ -39,9 +39,7 @@ public class Deal_Stage implements State{
 			System.out.println("Implementar estatísticas!");
 
 		}
-		else {
+		else
 			System.out.println(context.input+": invalid input");
-			context.setvalid(false);
-		}
 	}
 }

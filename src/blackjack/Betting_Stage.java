@@ -10,8 +10,8 @@ public class Betting_Stage implements State {
 				context.setTempBet(context.bet);
 				a5.update_bet(context.bet);
 			}
+			
 			if (context.temp_bet < player1.min_bet || context.temp_bet > player1.max_bet || context.temp_bet > player1.balance) {
-				context.setvalid(false);
 				System.out.println("illegal command");
 				
 			}
@@ -38,10 +38,8 @@ public class Betting_Stage implements State {
 
 		}
 		
-		else {
+		else
 			System.out.println(context.input+": illegal command");
-			context.setvalid(false);
-		}
 	}
 
 }

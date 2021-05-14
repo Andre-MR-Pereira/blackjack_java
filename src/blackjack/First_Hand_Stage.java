@@ -101,10 +101,8 @@ class First_Hand_Stage implements State {
 			System.out.println(player1.handStr(hand));
 			
 		}
-		else {
+		else
 			System.out.println(context.input+": invalid input");
-			context.setvalid(false);
-		}
 	}
 
 }

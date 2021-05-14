@@ -74,13 +74,15 @@ public class Hand {
             return 2; //pair hand
         }
         
+        int aux = 0;
         for(int i=0;i<ncards;i++) {
             if(cards[i].getCardface().equals("A")) {
                 no_aces=0;
             }
+            aux += cards[i].handValue();
         }
         
-        if(no_aces==0 && this.handTotal()>10) {
+        if(no_aces==0 && aux + 10 <= 21) {
             return 1; //soft hand
         } else {
             return 0; //hard hand

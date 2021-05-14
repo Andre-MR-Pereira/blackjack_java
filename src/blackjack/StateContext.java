@@ -15,6 +15,7 @@ public class StateContext {
         bet = min_bet;
         insurance = 0;
         hand = 0;
+        valid = false;
     }
     
     
@@ -161,7 +162,7 @@ public class StateContext {
         this.insurance = bet;
     }
     void checkInsurance(Player player1,Dealer casino){
-        if(insurance >0) {
+        if(insurance > 0) {
         	if(casino.handValue(0)==21) player1.update_win(insurance);
         	else player1.update_loss(insurance);
         	insurance = 0;
@@ -176,6 +177,10 @@ public class StateContext {
     
     void setvalid(boolean valid){
     	this.valid=valid;
+    }
+    
+    boolean check_valid() {
+    	return this.valid;
     }
     
     void hard_reset(Player player1,Dealer casino,Shoe s,Basic b, HiLo hl, AceFive a5) {
@@ -201,17 +206,11 @@ public class StateContext {
  
     
     public void call_state(Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5) {
-    	state.handle_input(this, player1, casino, s, b, hl, a5,hand);
+    	state.handle_input(this, player1, casino, s, b, hl, a5, hand);
     }
     
     public void handle_input(Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5) {
-    	valid = false;
-		while(!valid){
-			temp_bet=read_String();
-			if(valid) {	
-				state.handle_input(this, player1, casino, s, b, hl, a5,hand);
-			}
-		}
+    	state.handle_input(this, player1, casino, s, b, hl, a5, hand);
     }
     
 }

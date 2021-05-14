@@ -11,8 +11,12 @@ public class game {
 		HiLo hl = new HiLo();
 		AceFive a5 = new AceFive(min_bet, max_bet);
 		
-		while(true) {
-			flow.handle_input(player1,casino, s, basic, hl, a5);
+		while(!flow.check_valid()) {
+			flow.setTempBet(flow.read_String());
+			if(flow.check_valid()) {
+				flow.handle_input(player1, casino, s, basic, hl, a5);
+				flow.setvalid(false);
+			}
 		}
 	}
 	
