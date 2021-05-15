@@ -25,11 +25,11 @@ class First_Hand_Stage implements State {
 			
 		}
 	}
-	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand) {
+	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand,boolean debugger) {
 		Card temp = null;
 		if(context.input == 'h' || context.input == 's') {
 			context.setState(new Game_Stage());
-			context.call_state(player1, casino, s, b, hl, a5);
+			context.call_state(player1, casino, s, b, hl, a5,debugger);
 		}
 		else if (context.input=='$') {
 			System.out.println("player current balance is " + (int) player1.getBalance());
@@ -51,15 +51,15 @@ class First_Hand_Stage implements State {
 				
 				System.out.println("player busts");
 				if (player1.hands.size()==1) {
-					context.hard_reset(player1, casino, s, b, hl, a5);
+					context.hard_reset(player1, casino, s, b, hl, a5,debugger);
 					System.out.println("player loses and his current balance is " + (int) player1.getBalance());
 				}
 				else {
 					player1.hands.get(hand).setWin(0);
-					context.Resolution(context, player1, casino, s,b,hl,a5);
+					context.Resolution(context, player1, casino, s,b,hl,a5,debugger);
 				}	
 			}
-			else context.Resolution(context, player1, casino, s,b,hl,a5);
+			else context.Resolution(context, player1, casino, s,b,hl,a5,debugger);
 
 
 		}
@@ -73,12 +73,12 @@ class First_Hand_Stage implements State {
 			System.out.println("player is surrendering");
 			player1.surrender(hand);
 			if (player1.hands.size()==1) {
-				context.hard_reset(player1, casino, s, b, hl, a5);
+				context.hard_reset(player1, casino, s, b, hl, a5,debugger);
 				System.out.println("player's current balance is " + (int) player1.getBalance());
 			}
 			else {
 				player1.hands.get(hand).setWin(0);
-				context.Resolution(context, player1, casino, s,b,hl,a5);
+				context.Resolution(context, player1, casino, s,b,hl,a5,debugger);
 			}
 		}
 		else if(context.input == 'i'&& player1.hands.size()==1 && casino.hands.get(0).cards[0].handValue()==1) {
@@ -89,7 +89,7 @@ class First_Hand_Stage implements State {
 		else if(context.input == 'p' && player1.hands.get(0).cards[0].handValue()==player1.hands.get(0).cards[1].handValue()&& player1.hands.size()<4) {
 			if(player1.hands.get(0).cards[0].handValue()==1) {
 				finish_split(context, player1, casino, s, b, hl, a5, hand);
-				context.Resolution(context, player1, casino, s,b,hl,a5);
+				context.Resolution(context, player1, casino, s,b,hl,a5,debugger);
 			}
 			player1.splitting(player1.hands.get(hand));
 			temp = s.deal();

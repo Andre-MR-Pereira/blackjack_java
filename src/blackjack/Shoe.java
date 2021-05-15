@@ -1,10 +1,12 @@
 package blackjack;
 
 import java.util.Arrays;
+import java.io.FileInputStream;
+import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.Collections;
 import java.util.List;
 
-public class Shoe {
+public class Shoe{
 
 	private Card[] shoe;
 	private int ndecks;
@@ -27,6 +29,92 @@ public class Shoe {
 		shuffle();
 		this.percentage=percentage;
 	}
+	
+	// Constructor = Debug Shoe
+		public Shoe(FileInputStream shoe_file) {
+			Scanner reader;
+			String data=null;
+			reader=new Scanner(shoe_file);
+        	while (reader.hasNextLine()) {
+                data = reader.nextLine();
+                if(data==null) {
+                	System.out.println("Shoe file is empty");
+					System.exit(1);
+                }
+                
+                String[] fields =data.split(" ");
+                this.ndecks = (int)Math.ceil(fields.length/52);
+                if(this.ndecks<0 || this.ndecks>8) {
+                	System.out.println("The amount of decks in the shoe isn´t correct");
+					System.exit(1);
+                }
+                this.shoe= new Card[fields.length];
+                for(int i=0;i<fields.length;i++) {
+                	char c_value=' ';
+                	char c_suit=' ';
+    				String[] splited =fields[i].split("");
+    				
+    				if(splited.length<2 || splited.length>3) {
+    					System.out.println("A card is not formated correctly");
+						System.exit(1);
+    				}else if(splited.length==2) {
+    					c_value=splited[0].charAt(0);
+                    	c_suit=splited[1].charAt(0);
+    				}else if(splited.length==3) {
+    					c_value=splited[0].charAt(0);
+    					c_suit=splited[2].charAt(0);
+    				}
+                	
+                	int value=-1;
+                	int suit=-1;
+                	if(c_value=='A') {
+                		value=1;
+                	}else if(c_value=='J') {
+                		value=11;
+                	}else if(c_value=='Q') {
+                		value=12;
+                	}else if(c_value=='K') {
+                		value=13;
+                	}else {
+                		try {
+                			if(splited.length==3) {
+                				value=Integer.parseInt(splited[0].concat(splited[1]));
+                			}else {
+                				value=Integer.parseInt(splited[0]);
+                			}
+                			
+                		}catch(Exception e) {
+                			System.out.println("A card is not formated correctly");
+    						System.exit(1);
+                		}
+                		
+                	}
+                	
+                	if(c_suit=='H') {
+                		suit=1;
+                	}else if(c_suit=='S') {
+                		suit=2;
+                	}else if(c_suit=='C') {
+                		suit=3;
+                	}else if(c_suit=='D') {
+                		suit=4;
+                	}
+
+                	if(value<1 || value>13) {
+    					System.out.println("A card doesn´t have a valid suit");
+    					System.exit(1);
+    				}
+    				if(suit==-1) {
+    					System.out.println("A card doesn´t have a valid suit");
+    					System.exit(1);
+    				}
+    				Card card=new Card(value,suit);
+    				this.shoe[i]=card;
+    			}
+              }
+        	reader.close();
+        	this.currCard=0;
+		}
 	
 	// Method that returns the dealt card
 	public Card deal() {
@@ -51,8 +139,8 @@ public class Shoe {
 	}
 	
 	// Returns approximately how many decks remain in the shoe
-	public double decks_left() {
-		return (double) shoe.length/52;
+	public int decks_left() {
+		return (int) Math.ceil(shoe.length/52);
 	}
 	
 	// Shuffle the shoe

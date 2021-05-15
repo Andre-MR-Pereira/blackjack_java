@@ -231,11 +231,10 @@ public class HiLo implements Strategies {
 					System.out.println("hi-lo	hit");
 				}
 				return;
-			}else {
-				System.out.println("hi-lo	basic");
-				return;
 			}
 		}
+		
+		System.out.println("hi-lo	basic");
 		
 	}
 

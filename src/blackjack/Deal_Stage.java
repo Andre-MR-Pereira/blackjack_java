@@ -2,7 +2,7 @@ package blackjack;
 
 public class Deal_Stage implements State{
 
-	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand) {
+	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand,boolean debugger) {
 		if(context.input=='d') {
 			Card temp = null;
 			

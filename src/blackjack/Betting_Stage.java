@@ -2,8 +2,8 @@ package blackjack;
 
 public class Betting_Stage implements State {
 	
-	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand) {
-
+	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand,boolean debugger) {
+		
 		if(context.input=='b') {
 			
 			if (context.temp_bet == 0) {

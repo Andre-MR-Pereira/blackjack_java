@@ -1,8 +1,12 @@
 package blackjack;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class StateContext {
+	String holder;
     private State state;
     boolean valid;
     char input;
@@ -16,11 +20,12 @@ public class StateContext {
         insurance = 0;
         hand = 0;
         valid = false;
+        holder=null;
     }
     
     
     
-    public void Resolution(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5) {
+    public void Resolution(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5,boolean debugger) {
     	Card temp = new Card(0, 0);
     	if(hand<player1.hands.size()-1) {
 			hand++;
@@ -69,23 +74,75 @@ public class StateContext {
     			else if (casino.hands.get(i).ncards==2&&player1.hands.get(i).ncards<casino.hands.get(0).ncards) {
     				player1.hands.get(i).setWin(0);
 					System.out.println(player1.print_win(i));
-    			}
-
-    			
-    			
+    			}else {
+                    player1.hands.get(i).setWin(2);
+                    System.out.println(player1.print_win(i));
+                }
     		}
     		
     		hand = 0;
  
     		
-    		reset(player1, casino, s);
+    		reset(player1, casino, s,debugger);
     	}
 		
 		
 	}
     
-    
-    
+    public int read_File(List<String> moves){
+		valid = false;	
+		input = 'a';
+		int i = -1;
+		
+		if(!moves.isEmpty()) {
+			if(moves.get(0).equals("ad")) {
+				input = 'a'; // a for advice
+				valid = true;
+			}
+			else if(moves.get(0).equals("st")) {
+				input = 't'; // t for statistics
+				valid = true;
+			}else if(moves.get(0).length()==1) {
+				input = moves.get(0).charAt(0);
+				if(input=='a') {
+					System.out.println(input+": illegal command");
+					valid = false;
+				}
+				else if(input == 't') {
+					System.out.println(input+": illegal command");
+					valid = false;
+				}
+				else if(input=='q') {
+					System.out.println("bye");
+					System.exit(0);
+				}else if(input=='b') {
+					valid = true;
+					try {
+						i = Integer.parseInt(moves.get(1));
+					}
+					catch(NumberFormatException e) {
+						i=0;
+					}
+				}
+				else {
+					valid = true;
+					i = 0;
+				}
+			}else {
+				System.out.println(moves.get(0)+": illegal command");
+			}
+			System.out.println("input");
+			System.out.println(input);
+			moves.remove(0);
+			if(i>0) {
+				moves.remove(0);
+			}
+		}
+		
+		return i;
+		
+	}
+ 
     
     public int read_String() {
 		valid = false;
@@ -93,60 +150,61 @@ public class StateContext {
 		
 		input = 'a';
 		int i = -1;
-			temp = in.nextLine();
-			if(temp.length() > 1) {
-				input = temp.charAt(0);
-				if((temp.charAt(1)) == ' ' && (temp.charAt(0)) == 'b') {
-					if(temp.length()>2){
-						temp = temp.substring(2,temp.length());
-						try {
-							i = Integer.parseInt(temp);
-							valid = true;
-						}
-						catch(NumberFormatException e) {
-							System.out.println("illegal command");
-						}
+		
+		temp = in.nextLine();
+		if(temp.length() > 1) {
+			input = temp.charAt(0);
+			if((temp.charAt(1)) == ' ' && (temp.charAt(0)) == 'b') {
+				if(temp.length()>2){
+					temp = temp.substring(2,temp.length());
+					try {
+						i = Integer.parseInt(temp);
+						valid = true;
 					}
-					else {
+					catch(NumberFormatException e) {
 						System.out.println("illegal command");
 					}
-				}
-				else if(temp.equals("ad")) {
-					input = 'a'; // a for advice
-					valid = true;
-				}
-				else if(temp.equals("st")) {
-					input = 't'; // t for statistics
-					valid = true;
 				}
 				else {
 					System.out.println("illegal command");
 				}
 			}
+			else if(temp.equals("ad")) {
+				input = 'a'; // a for advice
+				valid = true;
+			}
+			else if(temp.equals("st")) {
+				input = 't'; // t for statistics
+				valid = true;
+			}
 			else {
-				if(temp.length()==1) {
-					input = temp.charAt(0);
-					if(input=='a') {
-						System.out.println(input+": illegal command");
-						valid = false;
-					}
-					else if(input == 't') {
-						System.out.println(input+": illegal command");
-						valid = false;
-					}
-					else if(input=='q') {
-						System.out.println("bye");
-						System.exit(0);
-					}
-					else {
-						valid = true;
-						i = 0;
-					}
+				System.out.println("illegal command");
+			}
+		}
+		else {
+			if(temp.length()==1) {
+				input = temp.charAt(0);
+				if(input=='a') {
+					System.out.println(input+": illegal command");
+					valid = false;
+				}
+				else if(input == 't') {
+					System.out.println(input+": illegal command");
+					valid = false;
+				}
+				else if(input=='q') {
+					System.out.println("bye");
+					System.exit(0);
 				}
 				else {
-					System.out.println("no input found");
+					valid = true;
+					i = 0;
 				}
 			}
+			else {
+				System.out.println("no input found");
+			}
+		}
 		
 		return i;
 	}
@@ -183,7 +241,7 @@ public class StateContext {
     	return this.valid;
     }
     
-    void hard_reset(Player player1,Dealer casino,Shoe s,Basic b, HiLo hl, AceFive a5) {
+    void hard_reset(Player player1,Dealer casino,Shoe s,Basic b, HiLo hl, AceFive a5,boolean debugger) {
     	Card temp;
     	
     	temp = casino.hands.get(0).cards[1];
@@ -191,12 +249,14 @@ public class StateContext {
 		a5.update_counter(temp);
 		System.out.println(casino.handStr(false));
 		player1.update_loss(0);
-		reset(player1,casino,s);
+		reset(player1,casino,s,debugger);
     }
     
-    public void reset(Player player1, Dealer casino, Shoe s)
+    public void reset(Player player1, Dealer casino, Shoe s,boolean debugger)
     {
-		s.check();
+    	if(!debugger){
+    		s.check();
+    	}
 		// Reset hands
 		casino.resetHand();
 		player1.resetHand();
@@ -205,12 +265,12 @@ public class StateContext {
     }
  
     
-    public void call_state(Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5) {
-    	state.handle_input(this, player1, casino, s, b, hl, a5, hand);
+    public void call_state(Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5,boolean debugger) {
+    	state.handle_input(this, player1, casino, s, b, hl, a5, hand,debugger);
     }
     
-    public void handle_input(Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5) {
-    	state.handle_input(this, player1, casino, s, b, hl, a5, hand);
+    public void handle_input(Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5,boolean debugger) {
+    	state.handle_input(this, player1, casino, s, b, hl, a5, hand,debugger);
     }
     
 }

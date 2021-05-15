@@ -80,13 +80,13 @@ public class HardTable extends Table{
         }
     }
 	
-	/*
+	
 	public static void main(String[] args){
         HardTable hard_tb=new HardTable();
         Hand hand=new Hand();
-        hand.addCard(new Card(11,1));
-        hand.addCard(new Card(8,1));
-        hard_tb.play(hand, new Card(7,1));
+        hand.addCard(new Card(5,1));
+        hand.addCard(new Card(5,1));
+        hard_tb.play(hand, new Card(9,1));
     }
-	*/
+	
 }
