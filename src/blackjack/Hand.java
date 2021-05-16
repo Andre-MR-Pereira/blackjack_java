@@ -1,13 +1,21 @@
 package blackjack;
 
 public class Hand {
+	/**
+	 * Objeto que guarda a mão de um jogador
+	 * @see Card
+	 */
 	Card[] cards;
 	double bet;
 	int ncards;
 	Chips chips;
 	int win;
 	
-	public Hand() {        //regular hand
+	/**
+	 * Cria uma mão que serve para o início de cada rodada
+	 * Mão regular
+	 */
+	public Hand() {
         cards = new Card[12];
         ncards = 0;
         bet=0;
@@ -15,6 +23,12 @@ public class Hand {
         win = -1;
     }
     
+	/**
+	 * Cria uma mão onde se sabe a primeira carta e a aposta a ser feita
+	 * Mão que advêm de um split
+	 * @param card carta que faz parte da mão
+	 * @param bet aposta que é realizada nessa mão
+	 */
     public Hand(Card card,double bet) {    //splitting hands
         cards = new Card[12];
         cards[0]=card;
@@ -25,6 +39,11 @@ public class Hand {
         win = -1;
     }
     
+    /**
+     * Cria uma mão onde se sabe as primeiras cartas
+     * @param card1 primeira carta
+     * @param card2 segunda carta
+     */
     public Hand(Card card1,Card card2) {    //opening hands
         cards = new Card[12];
         cards[0]=card1;
@@ -33,25 +52,45 @@ public class Hand {
         win = -1;
     }
 	
+    /**
+     * Guarda apenas a primeira carta como a mão do jogador
+     */
     public void splitHand() {
         ncards=1;
     }
 	
-	// Sets the player's bet
+	/**
+	 * Guarda a aposta feita nessa mão
+	 * @param b valor a apostar
+	 */
 	public void setBet(double b) {
 		if(chips.validate_bet(b)==true) {
 			this.bet = b;
 		}
 	}
 	
+	/**
+	 * Regista se a mão ganhou à mão do Dealer
+	 * @param win se ganhou ou não
+	 */
 	public void setWin(int win) {
 		this.win = win;
 	}
 	
+	/**
+	 * Adiciona uma carta à mão
+	 * @param c Carta a ser adicionada
+	 * @see Card
+	 */
 	public void addCard(Card c) {
 		cards[ncards++] = c;
 	}
 	
+	/**
+	 * Retorna uma string a indicar se a mão é melhor,igual ou pior
+	 * que a do Dealer
+	 * @return String descritiva sobre o estado de vitória da mão
+	 */
 	public String winStr() {
 		if (win == 0) return "loses";
 
@@ -60,15 +99,24 @@ public class Hand {
 		else return "pushes";
 	}
 	
+	/**
+	 * Retorna quantas cartas existem numa mão
+	 * @return
+	 */
 	public int handSize() {
 		return ncards;
 	}
 	
+	/**
+	 * Indica que tipo de mão se trata para referência das tabelas de estratégias
+	 * @return valor que indica que tipo de mão é
+	 * @see Table
+	 */
 	public int handType() {
         int no_aces=1;
         
         if(ncards==2 && cards[0].getCardface().equals(cards[1].getCardface()))
-            return 2; //pair hand
+            return 2; //Par
         
         int aux = 0;
         for(int i=0;i<ncards;i++) {
@@ -79,12 +127,16 @@ public class Hand {
         }
         
         if(no_aces == 0 && aux + 10 <= 21) {
-            return 1; //soft hand
+            return 1; //mão soft
         } else {
-            return 0; //hard hand
+            return 0; //mão hard
         }
     }
 	
+	/**
+	 * Indica o valor mais alto que essa mão possui no blackjack
+	 * @return valor da mão
+	 */
 	public int handTotal() {
 		int total = 0, aux;
 		boolean ace = false;
@@ -107,6 +159,11 @@ public class Hand {
 		return total;
 	}
 	
+	/**
+	 * Imprime a mão para a consola
+	 * @param hideCard indica se a ultima carta deverá ser revelada
+	 * @return String que indica a mão conhecida
+	 */
 	public String toString(boolean hideCard) {
 		String res = "";	
 		for(int i = 0; i < ncards; i++) {
@@ -124,6 +181,9 @@ public class Hand {
 		return res;
 	}
 	
+	/**
+	 * Imprime a mão de um jogador que não seja o Dealer.
+	 */
 	public String toString() {
 		return this.toString(false);
 	}

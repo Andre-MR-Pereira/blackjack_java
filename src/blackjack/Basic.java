@@ -1,16 +1,47 @@
 package blackjack;
 
 public class Basic implements Strategies {
+	/**
+	 * Objeto que implementa a estratégia básica.
+	 */
+	
+	/**
+	 * Variáveis que implementam cada uma das tabelas possíveis
+	 * a consultar durante o processo de escolha da estratégia
+	 * básica.
+	 * @see HardTable
+	 * @see SoftTable
+	 * @see PairTable
+	 */
     HardTable hard_tb;
     SoftTable soft_tb;
     PairTable pair_tb;
     
+    /**
+     * Cria um novo guia da estratégia básica. Este construtor
+     * apenas inicializa as tabelas de tácticas a serem consultadas.
+     * @see HardTable
+	 * @see SoftTable
+	 * @see PairTable
+     */
     public Basic() {
         this.hard_tb = new HardTable();
         this.soft_tb = new SoftTable();
         this.pair_tb = new PairTable();
     }
     
+    /**
+     * Escolhe o conselho a ser fornecido para a jogada em causa, consoante
+     * a estratégia básica.
+     * @param player mão do jogador.
+     * @param card_dealer carta conhecida do Dealer.
+     * @param shoe shoe ativo no jogo.
+     * @param p jogador->Serve para saber quantas maos o jogador tem em jogo.
+     * @return indicador para qual o conselho a ser fornecido.
+     * @see HardTable#play
+	 * @see SoftTable#play
+	 * @see PairTable#play
+     */
     public int advice(Hand player, Card card_dealer, Shoe shoe, Player p) {
     	
         if(player.handType() == 2) {
@@ -29,16 +60,20 @@ public class Basic implements Strategies {
             return -1;
     }
     
-    /*
-	 * 0 -- hit
-	 * 1 -- stand
-	 * 2 -- split
-	 * 3 -- Double // Hit
-	 * 4 -- Double // Stand
-	 * 5 -- Surrender
-	 */
     
+    /**
+     * Imprime o conselho para a consola.
+     * @param res indicador do conselho a ser impresso.
+     */
     public void print_advice(int res) {
+    	/*
+    	 * 0 -- hit
+    	 * 1 -- stand
+    	 * 2 -- split
+    	 * 3 -- Double // Hit
+    	 * 4 -- Double // Stand
+    	 * 5 -- Surrender
+    	 */
 		switch(res) {
 			case 0:
 				System.out.println("basic	hit");
@@ -60,6 +95,11 @@ public class Basic implements Strategies {
 		}
 	}
     
+    /**
+     * Fornece o caracter para a jogada ser automatizada.
+     * @param res indicador da jogada a ser escolhida
+     * @return caracter para jogar
+     */
     public char make_advice(int res) {
 		switch(res) {
 			case 0:
