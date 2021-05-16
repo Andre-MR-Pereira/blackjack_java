@@ -14,12 +14,11 @@ class Game_Stage implements State {
 			a5.update_counter(temp);
 			System.out.println("player hits");
 			System.out.println(player1.handStr(hand));
-			if(player1.handValue(hand)>21) {
+			if(player1.handValue(hand) > 21) {
 				System.out.println("player busts");
-				if (player1.hands.size()==1) {
-
-					context.hard_reset(player1, casino, s,b,hl,a5,debugger);
+				if (player1.hands.size() == 1) {
 					System.out.println("player loses and his current balance is " + (int) player1.getBalance());
+					context.hard_reset(player1, casino, s, b, hl, a5, debugger);
 				}
 				else {
 					player1.hands.get(hand).setWin(0);
@@ -37,8 +36,20 @@ class Game_Stage implements State {
 			context.Resolution(context, player1, casino, s,b,hl,a5,debugger);
 		}
 		else if(context.input == 'a') {
-			hl.advice(player1.hands.get(hand), casino.knownCard(), s);
-			b.advice(player1.hands.get(hand), casino.knownCard(), s);
+			if(hl.check_strat() == 0) {
+				hl.print_advice(hl.advice(player1.hands.get(hand), casino.knownCard(), s, player1));
+				b.print_advice(b.advice(player1.hands.get(hand), casino.knownCard(), s, player1));
+			}
+			else if(hl.check_strat() == 1) {
+				char aux;
+				aux = hl.make_advice(hl.advice(player1.hands.get(hand), casino.knownCard(), s, player1));
+				if(aux != '0')
+					context.set_input(aux);
+				else
+					context.set_input(b.make_advice(b.advice(player1.hands.get(hand), casino.knownCard(), s, player1)));
+			}
+			else if(hl.check_strat() == 2)
+				context.set_input(b.make_advice(b.advice(player1.hands.get(hand), casino.knownCard(), s, player1)));
 		}
 		else if(context.input == 't') {
 			// Imprimir estatísticas
@@ -46,6 +57,7 @@ class Game_Stage implements State {
 		}
 		else
 			System.out.println(context.input+": invalid input");
+
 	}
 
 }

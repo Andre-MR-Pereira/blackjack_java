@@ -11,13 +11,13 @@ public class Betting_Stage implements State {
 				a5.update_bet(context.bet);
 			}
 			
-			if (context.temp_bet < player1.min_bet || context.temp_bet > player1.max_bet || context.temp_bet > player1.balance) {
+			if (context.temp_bet < player1.min_bet || context.temp_bet > player1.max_bet) {
+				System.out.println(context.temp_bet);
 				System.out.println("illegal command");
-				
 			}
 			else {
 				context.setBet(context.temp_bet);
-				player1.hands.get(hand).setBet(context.bet);
+				player1.set_bet(0, context.bet);
 				System.out.println("player is betting "+ context.bet);
 				a5.update_bet(context.bet);
 				context.setState(new Deal_Stage());
@@ -29,8 +29,7 @@ public class Betting_Stage implements State {
 		}
 		else if(context.input == 'a') {
 			// Ace Five
-			a5.advice(null, null, s);
-
+			a5.print_advice(a5.advice(null, null, null, null));
 		}
 		else if(context.input == 't') {
 			// Imprimir estatísticas
@@ -40,6 +39,7 @@ public class Betting_Stage implements State {
 		
 		else
 			System.out.println(context.input+": illegal command");
+
 	}
 
 }

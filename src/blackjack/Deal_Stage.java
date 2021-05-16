@@ -41,5 +41,6 @@ public class Deal_Stage implements State{
 		}
 		else
 			System.out.println(context.input+": invalid input");
+
 	}
 }

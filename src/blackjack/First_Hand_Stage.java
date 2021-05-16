@@ -3,16 +3,18 @@ package blackjack;
 class First_Hand_Stage implements State {
 	
 	int win;
-	public void finish_split(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand) {
+	public void finish_split(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand, boolean debugger) {
 		Card temp = null;
-		while(hand<player1.hands.size()) {
-			if(player1.hands.get(0).cards[0].handValue()==player1.hands.get(0).cards[1].handValue()&& player1.hands.size()<4) {
+		
+		while(hand < player1.hands.size()) {
+			if(player1.hands.get(0).cards[0].handValue() == player1.hands.get(0).cards[1].handValue() && player1.hands.size() < 4) {
 				player1.splitting(player1.hands.get(hand));
 			}
 			else {
 				hand++;
 						
 			}
+			
 			if(hand<player1.hands.size()) {
 				temp = s.deal();
 				player1.hit(temp, hand);
@@ -24,23 +26,38 @@ class First_Hand_Stage implements State {
 			}
 			
 		}
+		
+		context.set_hands(hand);
+		context.Resolution(context, player1, casino, s, b, hl, a5, debugger);
 	}
-	public void handle_input(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand,boolean debugger) {
+	
+	public void handle_input(StateContext context, Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand, boolean debugger) {
 		Card temp = null;
 		if(context.input == 'h' || context.input == 's') {
 			context.setState(new Game_Stage());
-			context.call_state(player1, casino, s, b, hl, a5,debugger);
+			context.handle_input(player1, casino, s, b, hl, a5,debugger);
 		}
 		else if (context.input=='$') {
 			System.out.println("player current balance is " + (int) player1.getBalance());
 
 		}
 		else if(context.input == 'a') {
-			hl.advice(player1.hands.get(hand), casino.knownCard(), s);
-			b.advice(player1.hands.get(hand), casino.knownCard(), s);
-
+			if(hl.check_strat() == 0) {
+				hl.print_advice(hl.advice(player1.hands.get(hand), casino.knownCard(), s, player1));
+				b.print_advice(b.advice(player1.hands.get(hand), casino.knownCard(), s, player1));
+			}
+			else if(hl.check_strat() == 1) {
+				char aux;
+				aux = hl.make_advice(hl.advice(player1.hands.get(hand), casino.knownCard(), s, player1));
+				if(aux != '0')
+					context.set_input(aux);
+				else
+					context.set_input(b.make_advice(b.advice(player1.hands.get(hand), casino.knownCard(), s, player1)));
+			}
+			else if(hl.check_strat() == 2)
+				context.set_input(b.make_advice(b.advice(player1.hands.get(hand), casino.knownCard(), s, player1)));
 		}
-		else if(context.input == '2' && player1.handValue(0) > 8 && player1.handValue(0) < 12) {
+		else if(context.input == '2' && player1.handValue(hand) > 8 && player1.handValue(hand) < 12) {
 			temp = s.deal();
 			player1.hit(temp, 0);
 			hl.update_counter(temp);
@@ -56,7 +73,7 @@ class First_Hand_Stage implements State {
 				}
 				else {
 					player1.hands.get(hand).setWin(0);
-					context.Resolution(context, player1, casino, s,b,hl,a5,debugger);
+					context.Resolution(context, player1, casino, s, b, hl, a5, debugger);
 				}	
 			}
 			else context.Resolution(context, player1, casino, s,b,hl,a5,debugger);
@@ -68,41 +85,45 @@ class First_Hand_Stage implements State {
 			System.out.println("Implementar estatísticas!");
 
 		}
+		
 		else if(context.input == 'u') {
 			
 			System.out.println("player is surrendering");
 			player1.surrender(hand);
-			if (player1.hands.size()==1) {
+			if (player1.hands.size() == 1) {
 				context.hard_reset(player1, casino, s, b, hl, a5,debugger);
 				System.out.println("player's current balance is " + (int) player1.getBalance());
 			}
 			else {
 				player1.hands.get(hand).setWin(0);
-				context.Resolution(context, player1, casino, s,b,hl,a5,debugger);
+				context.Resolution(context, player1, casino, s, b, hl, a5, debugger);
 			}
 		}
-		else if(context.input == 'i'&& player1.hands.size()==1 && casino.hands.get(0).cards[0].handValue()==1) {
-			casino.dealerTurn(s);
+		
+		else if(context.input == 'i' && player1.hands.size() == 1 && casino.hands.get(0).cards[0].handValue() == 1) {
 			System.out.println("player is insuring");
-			context.setInsurance(context.bet);
+			player1.setInsurance(context.bet);
 		}
-		else if(context.input == 'p' && player1.hands.get(0).cards[0].handValue()==player1.hands.get(0).cards[1].handValue()&& player1.hands.size()<4) {
-			if(player1.hands.get(0).cards[0].handValue()==1) {
-				finish_split(context, player1, casino, s, b, hl, a5, hand);
-				context.Resolution(context, player1, casino, s,b,hl,a5,debugger);
+		
+		else if(context.input == 'p' && player1.hands.get(hand).cards[0].handValue() == player1.hands.get(hand).cards[1].handValue() && player1.hands.size() < 4) {
+			if(player1.hands.get(0).cards[0].handValue() == 1) {
+				finish_split(context, player1, casino, s, b, hl, a5, hand, debugger);
 			}
-			player1.splitting(player1.hands.get(hand));
-			temp = s.deal();
-			player1.hit(temp, hand);
-			hl.update_counter(temp);
-			a5.update_counter(temp);
-			System.out.println("player is splitting");
-			System.out.println("playing hand nº "+(hand+1)+"...");
-			System.out.println(player1.handStr(hand));
-			
+			else {
+				player1.splitting(player1.hands.get(hand));
+				temp = s.deal();
+				player1.hit(temp, hand);
+				hl.update_counter(temp);
+				a5.update_counter(temp);
+				System.out.println("player is splitting");
+				System.out.println("playing hand nº "+(hand+1)+"...");
+				System.out.println(player1.handStr(hand));
+			}
 		}
+		
 		else
 			System.out.println(context.input+": invalid input");
+
 	}
 
 }

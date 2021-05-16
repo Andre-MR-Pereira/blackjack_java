@@ -67,12 +67,8 @@ public class Hand {
 	public int handType() {
         int no_aces=1;
         
-        if(ncards==2 && cards[0].getCardface().equals(cards[1].getCardface())) {
-            if(cards[0].getCardface().equals("A")) {
-                return -2;
-            }
+        if(ncards==2 && cards[0].getCardface().equals(cards[1].getCardface()))
             return 2; //pair hand
-        }
         
         int aux = 0;
         for(int i=0;i<ncards;i++) {
@@ -82,7 +78,7 @@ public class Hand {
             aux += cards[i].handValue();
         }
         
-        if(no_aces==0 && aux + 10 <= 21) {
+        if(no_aces == 0 && aux + 10 <= 21) {
             return 1; //soft hand
         } else {
             return 0; //hard hand

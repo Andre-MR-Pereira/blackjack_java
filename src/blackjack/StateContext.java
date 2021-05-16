@@ -8,28 +8,64 @@ import java.util.Scanner;
 public class StateContext {
 	String holder;
     private State state;
-    boolean valid;
+    boolean valid, sim_ad, shuffle_flag;
     char input;
-	int bet, temp_bet,insurance;
+	int bet, temp_bet;
 	int hand;
-    Scanner in = new Scanner(System.in);
+	Scanner in = new Scanner(System.in);
     
     public StateContext(int min_bet) {
         state = new Betting_Stage();
         bet = min_bet;
-        insurance = 0;
+        temp_bet = 0;
         hand = 0;
         valid = false;
-        holder=null;
+        sim_ad = true;
+        shuffle_flag = false;
+        holder = null;
     }
     
+    public void set_hands(int h) {
+    	this.hand = h;
+    }
     
+    public void sim_input(String strats, AceFive a5) {
+    	
+    	if(state instanceof Betting_Stage) {
+    		input = 'b';
+    		if(strats.equals("BS-AF") || strats.equals("HL-AF"))
+    			temp_bet = a5.make_advice(a5.advice(null, null, null, null));
+    	}
+    	
+    	else if(state instanceof Deal_Stage)
+    		input = 'd';
+    	
+    	else {
+    		if(sim_ad) {
+    			input = 'a';
+    			sim_ad = false;
+    		}
+    		else
+    			sim_ad = true;
+    	}
+    }
     
-    public void Resolution(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5,boolean debugger) {
+    public void set_input(char in) {
+    	this.input = in;
+    }
+    
+    public boolean reset_shuffle() {
+    	boolean flag = this.shuffle_flag;
+    	this.shuffle_flag = false;
+    	return flag;
+    }
+    
+    public void Resolution(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, boolean debugger) {
     	Card temp = new Card(0, 0);
-    	if(hand<player1.hands.size()-1) {
+    	
+    	if(hand < player1.hands.size() - 1) {
 			hand++;
-			System.out.println("playing hand nº "+(hand+1)+"...");
+			System.out.println("playing hand nº " + (hand+1) + "...");
 			temp = s.deal();
 			player1.hit(temp, hand);
 			hl.update_counter(temp);
@@ -46,44 +82,77 @@ public class StateContext {
 				hl.update_counter(temp);
 				a5.update_counter(temp);
 			}
+			
 			int casino_value = casino.handValue(0);
 			int player_value = 0;
+			
     		for(int i = 0; i < player1.hands.size(); i++) {
     			player_value  = player1.handValue(i);
-    			if ((player_value < casino_value  && casino_value  < 22)||player1.hands.get(i).win == 0) {
+    			
+    			if ((player_value < casino_value  && casino_value  < 22) || player1.hands.get(i).win == 0) {
     				player1.hands.get(i).setWin(0);
-    				player1.update_loss(i);
     				System.out.println(player1.print_win(i));
+    				
+    				if(bet - a5.min_bet < a5.min_bet)
+    					temp_bet = a5.min_bet;
+    				else
+    					temp_bet = bet - a5.min_bet;
     			}
-    			else if(player_value > casino_value ||casino_value  > 21) {
-        			if (player_value == 21 && player1.hands.get(i).ncards==2) player1.update_bj(i);
-        			else player1.update_win(i);
+    			
+    			else if(player_value > casino_value || casino_value  > 21) {
+        			if (player_value == 21 && player1.hands.get(i).ncards == 2 && (player1.hands.size() < 2 || player1.hands.get(i).cards[1].handValue() == 1)) 
+        				player1.update_bj(i);
+        			else 
+        				player1.update_win(i);
 					player1.hands.get(i).setWin(1);
 					System.out.println(player1.print_win(i));
+					
+					if(bet + a5.min_bet > a5.max_bet)
+    					temp_bet = a5.max_bet;
+    				else
+    					temp_bet = bet + a5.min_bet;
 				}
-    			else  if (player_value<21){
+    			
+    			else  if (player_value < 21) {
     				player1.hands.get(i).setWin(2);
+    				player1.update_draw(i);
     				System.out.println(player1.print_win(i));
     			}
-    			else if (player1.hands.get(i).ncards==2&&player1.hands.get(i).ncards<casino.hands.get(0).ncards){
+    			
+    			else if (player1.hands.get(i).ncards == 2 && player1.hands.get(i).ncards < casino.hands.get(0).ncards) {
     				player1.hands.get(i).setWin(1);
 					System.out.println(player1.print_win(i));
-					if(player1.hands.size()<2||player1.hands.get(i).cards[1].handValue()==1)  player1.update_bj(i);
-					else player1.update_win(i);
+					if(player1.hands.size() < 2 || player1.hands.get(i).cards[1].handValue() == 1)  
+						player1.update_bj(i);
+					else 
+						player1.update_win(i);
+					
+					if(bet + a5.min_bet > a5.max_bet)
+    					temp_bet = a5.max_bet;
+    				else
+    					temp_bet = bet + a5.min_bet;
     			}
-    			else if (casino.hands.get(i).ncards==2&&player1.hands.get(i).ncards<casino.hands.get(0).ncards) {
+    			
+    			else if (casino.hands.get(0).ncards == 2 && player1.hands.get(i).ncards < casino.hands.get(0).ncards) {
     				player1.hands.get(i).setWin(0);
 					System.out.println(player1.print_win(i));
-    			}else {
+					
+					if(bet - a5.min_bet < a5.min_bet)
+    					temp_bet = a5.min_bet;
+    				else
+    					temp_bet = bet - a5.min_bet;
+    			}
+    			
+    			else {
                     player1.hands.get(i).setWin(2);
+                    player1.update_draw(i);
                     System.out.println(player1.print_win(i));
                 }
     		}
     		
     		hand = 0;
- 
     		
-    		reset(player1, casino, s,debugger);
+    		shuffle_flag = reset(player1, casino, s, hl, a5, debugger);
     	}
 		
 		
@@ -131,7 +200,6 @@ public class StateContext {
 			}else {
 				System.out.println(moves.get(0)+": illegal command");
 			}
-			System.out.println("input");
 			System.out.println(input);
 			moves.remove(0);
 			if(i>0) {
@@ -213,64 +281,66 @@ public class StateContext {
      * Normally only called by classes implementing the State interface.
      * @param newState the new state of this context
      */
-    void setState(State newState) {
+    public void setState(State newState) {
         state = newState;
     }
-    void setInsurance(int bet) {
-        this.insurance = bet;
-    }
-    void checkInsurance(Player player1,Dealer casino){
-        if(insurance > 0) {
-        	if(casino.handValue(0)==21) player1.update_win(insurance);
-        	else player1.update_loss(insurance);
-        	insurance = 0;
+    
+    public void checkInsurance(Player player1, Dealer casino) {
+        if(player1.check_insurance() > 0) {
+        	if(casino.handValue(0) == 21 && casino.handSize(0) == 2) 
+        		player1.insurance_win();
+        	
+        	player1.setInsurance(0);
         }
     }
-    void setBet(int bet){
+    
+    public void setBet(int bet){
     	this.bet=bet;
     }
-    void setTempBet(int temp_bet){
+    public void setTempBet(int temp_bet){
     	this.temp_bet=temp_bet;
     }
     
-    void setvalid(boolean valid){
+    public void setvalid(boolean valid){
     	this.valid=valid;
     }
     
-    boolean check_valid() {
+    public boolean check_valid() {
     	return this.valid;
     }
     
-    void hard_reset(Player player1,Dealer casino,Shoe s,Basic b, HiLo hl, AceFive a5,boolean debugger) {
+    public void hard_reset(Player player1,Dealer casino,Shoe s,Basic b, HiLo hl, AceFive a5, boolean debugger) {
     	Card temp;
     	
     	temp = casino.hands.get(0).cards[1];
 		hl.update_counter(temp);
 		a5.update_counter(temp);
 		System.out.println(casino.handStr(false));
-		player1.update_loss(0);
-		reset(player1,casino,s,debugger);
+		reset(player1, casino, s, hl, a5, debugger);
     }
     
-    public void reset(Player player1, Dealer casino, Shoe s,boolean debugger)
-    {
-    	if(!debugger){
-    		s.check();
+    public boolean reset(Player player1, Dealer casino, Shoe s, HiLo hl, AceFive a5, boolean debugger) {
+    	boolean res = false;
+    	
+    	if(!debugger) {
+    		if(s.check()) {
+    			hl.reset_count();
+    			a5.reset_count();
+    			res = true;
+    		}
     	}
+    	
 		// Reset hands
 		casino.resetHand();
 		player1.resetHand();
 		
 		setState(new Betting_Stage());
-    }
- 
-    
-    public void call_state(Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5,boolean debugger) {
-    	state.handle_input(this, player1, casino, s, b, hl, a5, hand,debugger);
+		
+		return res;
     }
     
     public void handle_input(Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5,boolean debugger) {
-    	state.handle_input(this, player1, casino, s, b, hl, a5, hand,debugger);
+    	state.handle_input(this, player1, casino, s, b, hl, a5, hand, debugger);
     }
     
 }

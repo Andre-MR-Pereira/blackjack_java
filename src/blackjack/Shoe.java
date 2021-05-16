@@ -134,13 +134,17 @@ public class Shoe{
 	}
 	
 	// Check if the shoe needs to be re-shuffled
-	public void check() {
-		if ((float)currCard/((float)52*ndecks)> percentage) shuffle();
+	public boolean check() {
+		if ((double)(currCard*100)/((double)52*ndecks) > percentage) {
+			shuffle();
+			return true;
+		}
+		return false;
 	}
 	
 	// Returns approximately how many decks remain in the shoe
-	public int decks_left() {
-		return (int) Math.ceil(shoe.length/52);
+	public double decks_left() {
+		return shoe.length/52;
 	}
 	
 	// Shuffle the shoe

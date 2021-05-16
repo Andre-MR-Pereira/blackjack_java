@@ -27,7 +27,6 @@ public class error_catcher {
 		}
 		 System.err.println("error in the paramenteres value");
 		 System.exit(1);
-			
 	}
 
 }

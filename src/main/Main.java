@@ -10,7 +10,7 @@ import java.util.Scanner; // Import the Scanner class to read text files
 
 public class Main {
 	
-	public static void main(String[] args) throws FileNotFoundException{
+	public static void main(String[] args) throws FileNotFoundException {
 		game g = new game();
 		error_catcher er = new error_catcher();
 		int min_bet, max_bet, balance, shoe, shuffle, s_shuffle;
@@ -38,24 +38,29 @@ public class Main {
                 System.err.println("Arguments " + args[1]+ ", " + args[2]+ ", "+  args[3]+ ", " + args[4]+ "and " + args[5]+ " must be an integer.");
                 System.exit(1);
             }
-            
-            
 
         }
 		else if (args[0].equals("-s")){
 
-			if (count!=6) {
-				System.err.println("Wrong Number of Arguments");
+			if (count!=8) {
+                System.err.println("Wrong Number of Arguments");
                 System.exit(1);
-			}
-			try {
-            	min_bet = Integer.parseInt(args[1]);
-            	max_bet = Integer.parseInt(args[2]);
-            	balance = Integer.parseInt(args[3]);
-            	er.money_valid(min_bet,max_bet,balance);
+            }
+
+            try {
+                min_bet = Integer.parseInt(args[1]);
+                max_bet = Integer.parseInt(args[2]);
+                balance = Integer.parseInt(args[3]);
+                shoe = Integer.parseInt(args[4]);
+                shuffle = Integer.parseInt(args[5]);
+                s_shuffle = Integer.parseInt(args[6]);
+                er.money_valid(min_bet,max_bet,balance);
+                er.shoe_valid(shoe, shuffle);
+                er.strategy_valid(args[7]);
                 
+                g.simulationstart(min_bet, max_bet, balance, shoe, shuffle, s_shuffle, args[7]);
             } catch (NumberFormatException e) {
-                System.err.println("Arguments " + args[1]+ ", " + args[2]+ ", "+  args[3]+ ", "+ " must be an integer.");
+                System.err.println("Arguments " + args[1]+ ", " + args[2]+ ", "+  args[3]+ ", " + args[4]+ ", " + args[5]+ "and " + args[6]+ " must be an integer.");
                 System.exit(1);
             }
 		}
