@@ -2,6 +2,9 @@ package blackjack;
 
 public class SoftTable extends Table{
 
+	/**
+	 * Tabela de opções para uma mao do tipo soft
+	 */
 	public SoftTable() {
         plays= new int[9][10];
         for(int i = 0; i < 9; i++) {
@@ -28,6 +31,13 @@ public class SoftTable extends Table{
         }
     }
 	
+	/**
+	 * Indica qual a jogada a ser tomada consoante a mão em causa do jogador
+	 * e a carta conhecida do Dealer.
+	 * @param player mão a ser analisada do jogador.
+	 * @param card_dealer carta conhecida do Dealer.
+	 * @return jogada a ser tomada.
+	 */
 	public int play(Hand player, Card card_dealer) {
         int line, column;
         Hand opening = new Hand(player.cards[0], player.cards[1]);

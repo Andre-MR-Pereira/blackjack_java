@@ -1,33 +1,52 @@
 package blackjack;
 
 public class HiLo implements Strategies {
-
+	/**
+	 * Objeto que implementa a estratégia Hi Low.
+	 */
 	int running_count;
 	int ndecks;
 	double true_count;
 	int strat;
 	
-	// Constructor
+	/**
+	 * Construtor que inicializa os parametros de contagem da 
+	 * estratégia Hi Low.
+	 */
 	public HiLo() {
 		this.running_count = 0;
 		this.true_count = 0;
 		strat = 0;
 	}
 	
-	// Resets the hilo counter
+	/**
+	 * Dá reset ao contador do Hi Low.
+	 */
 	public void reset_count() {
 		this.running_count = 0;
 	}
 	
+	/**
+	 * Guarda qual a estratégia a ser seguida
+	 * @param i estratégia escolhida
+	 */
 	public void set_strat(int i) {
 		this.strat = i;
 	}
 	
+	/**
+	 * Retorna qual a estratégia a ser aplicada
+	 * @return estratégia escolhida
+	 */
 	public int check_strat() {
 		return strat;
 	}
 	
 	// Updates the running count based on the card dealt
+	/**
+	 * Atualiza o contador do Hi Low baseado na carta que foi retirada na jogada.
+	 * @param c carta que foi retirada do shoe.
+	 */
 	public void update_counter(Card c) {
 		if(c.getCardvalue() >= 2 && c.getCardvalue() <= 6) {
 			running_count++;
@@ -36,35 +55,18 @@ public class HiLo implements Strategies {
 		}
 	}
 	
+	/**
+	 * Atualiza o contador com que são feitas as decisões no Hi Low.
+	 * @param s shoe que está a ser usado
+	 */
 	public void update_true(Shoe s) {
 		this.true_count = running_count/s.decks_left();
 	}
 	
-	
-	/*
-	 * res = 0;
-	 * System.out.println("hi-lo	basic");
-	 * 
-	 * res = 1;
-	 * System.out.println("hi-lo	hit");
-	 * 
-	 * res = 2;
-	 * System.out.println("hi-lo	stand");
-	 * 
-	 * res = 3;
-	 * System.out.println("hi-lo	double");
-	 * 
-	 * res = 4;
-	 * System.out.println("hi-lo	surrender");
-	 * 
-	 * res = 5;
-	 * System.out.println("hi-lo	insurance");
-	 * 
-	 * res = 6;
-	 * System.out.println("hi-lo	split");
-	 *  
+	/**
+	 * Imprime qual a jogada que deve ser tomada para a consola.
+	 * @param res estratégia a ser tomada.
 	 */
-	
 	public void print_advice(int res) {
 		switch(res) {
 			case 1:
@@ -90,6 +92,11 @@ public class HiLo implements Strategies {
 		}
 	}
 	
+	/**
+	 * Escolha a estratégia para a jogada em causa.
+	 * @param res estratégia a ser tomada.
+	 * @return o caracter da jogada que pode ser aplicado para continuar o jogo.
+	 */
 	public char make_advice(int res) {
 		switch(res) {
 			case 1:
@@ -109,6 +116,15 @@ public class HiLo implements Strategies {
 		}
 	}
 	
+	/**
+	 * Escolhe qual a jogada a ser realizada pela estratégia Hi Low consoante
+	 * a mão do jogador, a carta conhecida do dealer e o shoe em jogo.
+	 * @param player mão a ser analisada nesta jogada
+	 * @param card_dealer carta conhecida do Dealer
+	 * @param shoe shoe a ser usado
+	 * @param p jogador a ser analisado
+	 * @return qual a jogada a ser aconselhada
+	 */
 	public int advice(Hand player, Card card_dealer, Shoe shoe, Player p) {
 		update_true(shoe);
 		
