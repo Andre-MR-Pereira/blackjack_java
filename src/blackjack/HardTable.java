@@ -8,7 +8,7 @@ public class HardTable extends Table{
         plays = new int[17][10];
         for(int i = 0; i < 17; i++) {
             if(i < 4) {
-                int[] buffer = {0,0,0,0,0,0,0,0,0,0};
+                int[] buffer = 	{0,0,0,0,0,0,0,0,0,0};
                 plays[i] = buffer;
             }
             else if(i > 11) {

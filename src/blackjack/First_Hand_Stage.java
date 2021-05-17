@@ -1,13 +1,52 @@
 package blackjack;
 
 class First_Hand_Stage implements State {
-	
+    public void finish_split(StateContext context,Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand, boolean debugger) {
+        Card temp = null;
+        boolean breaker=false; 
+
+        do {
+            if(context.input=='p'&&player1.hands.get(hand).cards[0].handValue() == player1.hands.get(hand).cards[1].handValue() && player1.hands.size() < 4) {
+                
+                player1.splitting(player1.hands.get(hand));
+                System.out.println("player is splitting");
+                
+            }
+            else if (player1.hands.get(hand).handSize()==2){
+                hand++;
+                System.out.println("player stands");
+               
+            }
+            if(hand<player1.hands.size()) {
+            	System.out.println("playing hand nº "+(hand+1)+"...");
+                temp = s.deal();
+                player1.hit(temp, hand);
+                hl.update_counter(temp);
+                a5.update_counter(temp);
+                if(temp.handValue()==1&&player1.hands.size() < 3) breaker =true;
+                System.out.println(player1.handStr(hand));    
+            }
+            
+            if(breaker) {
+            	if(player1.hands.size()==4) System.out.println("player stands");
+            	break;
+            }
+        }while(hand < player1.hands.size());
+        
+        context.set_hands(hand);  
+        if(hand == player1.hands.size()||hand == 3) context.Resolution(context, player1, casino, s, b, hl, a5, debugger);
+        
+    }
 	
 	public void handle_input(StateContext context, Player player1, Dealer casino, Shoe s, Basic b, HiLo hl, AceFive a5, int hand, boolean debugger) {
 		Card temp = null;
 		if(context.input == 's') {
-			context.setState(new Game_Stage());
-			context.handle_input(player1, casino, s, b, hl, a5,debugger);
+			if(context.finish_split)  finish_split(context, player1, casino, s, b, hl, a5, hand, debugger);
+			else {
+				context.setState(new Game_Stage());
+				context.handle_input(player1, casino, s, b, hl, a5,debugger);	
+			}
+
 		}
 		else if (context.input=='$') {
 			System.out.println("player current balance is " + (int) player1.getBalance());
@@ -38,7 +77,10 @@ class First_Hand_Stage implements State {
 				if(player1.hands.get(0).cards[0].handValue() == 1) {
 					context.setFinishSplit(true);
 					if(context.input != 'p') System.out.println(context.input+": invalid input");
-				}
+					else {
+						finish_split(context, player1, casino, s, b, hl, a5, hand, debugger);
+					}
+				}else {
 					player1.splitting(player1.hands.get(hand));
 					temp = s.deal();
 					player1.hit(temp, hand);
@@ -47,6 +89,8 @@ class First_Hand_Stage implements State {
 					System.out.println("player is splitting");
 					System.out.println("playing hand nº "+(hand+1)+"...");
 					System.out.println(player1.handStr(hand));
+				}
+					
 			}
 			else {
 				System.out.println(context.input+": invalid input");
