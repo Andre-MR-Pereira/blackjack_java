@@ -1,7 +1,5 @@
 package blackjack;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,8 +11,9 @@ public class StateContext {
 	int bet, temp_bet;
 	int hand;
 	Scanner in = new Scanner(System.in);
-    
-    public StateContext(int min_bet) {
+	statistics stat;
+    boolean finish_split;
+    public StateContext(int min_bet,int balance) {
         state = new Betting_Stage();
         bet = min_bet;
         temp_bet = 0;
@@ -23,6 +22,8 @@ public class StateContext {
         sim_ad = true;
         shuffle_flag = false;
         holder = null;
+        stat = new statistics(balance);
+        finish_split=false;
     }
     
     public void set_hands(int h) {
@@ -76,7 +77,7 @@ public class StateContext {
     	
     	else {
     		checkInsurance(player1, casino);
-    		casino.dealerTurn(s);
+    		casino.dealerTurn(s,stat);
 			for(int i = 1; i < casino.handSize(0); i++) {
 				temp = casino.hands.get(0).cards[i];
 				hl.update_counter(temp);
@@ -91,6 +92,7 @@ public class StateContext {
     			
     			if ((player_value < casino_value  && casino_value  < 22) || player1.hands.get(i).win == 0) {
     				player1.hands.get(i).setWin(0);
+    				stat.update_game_result(0);
     				System.out.println(player1.print_win(i));
     				
     				if(bet - a5.min_bet < a5.min_bet)
@@ -106,7 +108,7 @@ public class StateContext {
         				player1.update_win(i);
 					player1.hands.get(i).setWin(1);
 					System.out.println(player1.print_win(i));
-					
+					stat.update_game_result(1);
 					if(bet + a5.min_bet > a5.max_bet)
     					temp_bet = a5.max_bet;
     				else
@@ -117,6 +119,7 @@ public class StateContext {
     				player1.hands.get(i).setWin(2);
     				player1.update_draw(i);
     				System.out.println(player1.print_win(i));
+    				stat.update_game_result(2);
     			}
     			
     			else if (player1.hands.get(i).ncards == 2 && player1.hands.get(i).ncards < casino.hands.get(0).ncards) {
@@ -126,7 +129,7 @@ public class StateContext {
 						player1.update_bj(i);
 					else 
 						player1.update_win(i);
-					
+					stat.update_game_result(1);
 					if(bet + a5.min_bet > a5.max_bet)
     					temp_bet = a5.max_bet;
     				else
@@ -136,7 +139,7 @@ public class StateContext {
     			else if (casino.hands.get(0).ncards == 2 && player1.hands.get(i).ncards < casino.hands.get(0).ncards) {
     				player1.hands.get(i).setWin(0);
 					System.out.println(player1.print_win(i));
-					
+					stat.update_game_result(0);
 					if(bet - a5.min_bet < a5.min_bet)
     					temp_bet = a5.min_bet;
     				else
@@ -147,6 +150,7 @@ public class StateContext {
                     player1.hands.get(i).setWin(2);
                     player1.update_draw(i);
                     System.out.println(player1.print_win(i));
+                    stat.update_game_result(2);
                 }
     		}
     		
@@ -287,8 +291,11 @@ public class StateContext {
     
     public void checkInsurance(Player player1, Dealer casino) {
         if(player1.check_insurance() > 0) {
-        	if(casino.handValue(0) == 21 && casino.handSize(0) == 2) 
+        	if(casino.handValue(0) == 21 && casino.handSize(0) == 2) {
         		player1.insurance_win();
+        		System.out.println("player wins insurance");
+        	}
+        		
         	
         	player1.setInsurance(0);
         }
@@ -303,6 +310,10 @@ public class StateContext {
     
     public void setvalid(boolean valid){
     	this.valid=valid;
+    }
+    
+    public void setFinishSplit(boolean finish_split){
+    	this.finish_split=finish_split;
     }
     
     public boolean check_valid() {
@@ -333,7 +344,7 @@ public class StateContext {
 		// Reset hands
 		casino.resetHand();
 		player1.resetHand();
-		
+		setFinishSplit(false);
 		setState(new Betting_Stage());
 		
 		return res;

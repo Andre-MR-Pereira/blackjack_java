@@ -52,8 +52,7 @@ class Game_Stage implements State {
 				context.set_input(b.make_advice(b.advice(player1.hands.get(hand), casino.knownCard(), s, player1)));
 		}
 		else if(context.input == 't') {
-			// Imprimir estatísticas
-			System.out.println("Implementar estatísticas!");
+			context.stat.print_statistics(player1.getBalance());
 		}
 		else
 			System.out.println(context.input+": invalid input");

@@ -1,17 +1,23 @@
 package blackjack;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class game {
-	
+	/**
+	 * Começa e chama o estado usando o modo iterativo
+	 * @see StateContext
+	 * @param min_bet aposta mìnima
+	 * @param max_bet aposta màxima
+	 * @param balance dinheiro inicial
+	 * @param shoe número de decks
+	 * @param shuffle qual a percentagem onde se deve dar shuffle
+	 */
 	public void interactivestart(int min_bet, int max_bet,int balance,int shoe,int shuffle) {
 		Shoe s = new Shoe(shoe,shuffle);
 		Dealer casino = new Dealer();
 		Player player1 = new Player(balance,min_bet,max_bet);
-		StateContext flow = new StateContext(min_bet);
+		StateContext flow = new StateContext(min_bet,balance);
 		Basic basic = new Basic();
 		HiLo hl = new HiLo();
 		AceFive a5 = new AceFive(min_bet, max_bet);
@@ -24,11 +30,19 @@ public class game {
 			}
 		}
 	}
-	
+	/**
+	 * Começa e chama o estado usando o modo debug
+	 * @see StateContext
+	 * @param min_bet aposta mìnima
+	 * @param max_bet aposta màxima
+	 * @param balance dinheiro inicial
+	 * @param shoe Deck
+	 * @param moves lista de comandos
+	 */
 	public void debugstart(int min_bet, int max_bet,int balance,Shoe shoe,List<String> moves){
 		Dealer casino = new Dealer();
 		Player player1 = new Player(balance,min_bet,max_bet);
-		StateContext flow = new StateContext(min_bet);
+		StateContext flow = new StateContext(min_bet,balance);
 		Basic basic = new Basic();
 		HiLo hl = new HiLo();
 		AceFive a5 = new AceFive(min_bet, max_bet);
@@ -41,12 +55,21 @@ public class game {
 			}
 		}
 	}
-	
+	/**
+	 * Começa e chama o estado usando o modo de simulação
+	 * @see StateContext
+	 * @param min_bet aposta mìnima
+	 * @param max_bet aposta màxima
+	 * @param balance dinheiro inicial
+	 * @param shoe número de decks
+	 * @param s_number número de shuffles até acabar
+	 * @param strats estratégia empregue na simulação
+	 */
 	public void simulationstart(int min_bet, int max_bet, int balance, int shoe, int shuffle, int s_number, String strats) {
 		Shoe s = new Shoe(shoe, shuffle);
 		Dealer casino = new Dealer();
 		Player player1 = new Player(balance, min_bet, max_bet);
-		StateContext flow = new StateContext(min_bet);
+		StateContext flow = new StateContext(min_bet,balance);
 		Basic basic = new Basic();
 		AceFive a5 = new AceFive(min_bet, max_bet);
 		HiLo hl = new HiLo();

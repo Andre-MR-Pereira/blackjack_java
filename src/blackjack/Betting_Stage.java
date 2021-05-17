@@ -32,8 +32,7 @@ public class Betting_Stage implements State {
 			a5.print_advice(a5.advice(null, null, null, null));
 		}
 		else if(context.input == 't') {
-			// Imprimir estatísticas
-			System.out.println("Implementar estatísticas!");
+			context.stat.print_statistics(player1.getBalance());
 
 		}
 		

@@ -27,16 +27,17 @@ public class Deal_Stage implements State{
 			context.setState(new First_Hand_Stage());
 			System.out.println(casino.handStr(true));
 			System.out.println(player1.handStr(0));
-			if(player1.handValue(0)==21) 
+			if(player1.handValue(0)==21) {
 				System.out.println("blackjack!!");
+				context.stat.update_blackjack(true);
+			}
 		}
 		else if (context.input=='$') {
 			System.out.println("player current balance is " + (int) player1.getBalance());
 
 		}
 		else if(context.input == 't') {
-			// Imprimir estatísticas
-			System.out.println("Implementar estatísticas!");
+			context.stat.print_statistics(player1.getBalance());
 
 		}
 		else
