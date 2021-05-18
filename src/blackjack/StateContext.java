@@ -76,8 +76,8 @@ public class StateContext {
 		}
     	
     	else {
-    		checkInsurance(player1, casino);
     		casino.dealerTurn(s,stat);
+    		checkInsurance(player1, casino);
 			for(int i = 1; i < casino.handSize(0); i++) {
 				temp = casino.hands.get(0).cards[i];
 				hl.update_counter(temp);
@@ -234,7 +234,7 @@ public class StateContext {
 						valid = true;
 					}
 					catch(NumberFormatException e) {
-						System.out.println("illegal command");
+						System.out.println("b " + temp +": illegal command");
 					}
 				}
 				else {
@@ -250,7 +250,7 @@ public class StateContext {
 				valid = true;
 			}
 			else {
-				System.out.println("illegal command");
+				System.out.println(temp + ": illegal command");
 			}
 		}
 		else {

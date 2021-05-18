@@ -12,8 +12,7 @@ public class Betting_Stage implements State {
 			}
 			
 			if (context.temp_bet < player1.min_bet || context.temp_bet > player1.max_bet) {
-				System.out.println(context.temp_bet);
-				System.out.println("illegal command");
+				System.out.println("b" + context.temp_bet + ": illegal command");
 			}
 			else {
 				context.setBet(context.temp_bet);
@@ -37,7 +36,7 @@ public class Betting_Stage implements State {
 		}
 		
 		else
-			System.out.println(context.input+": illegal command");
+			System.out.println(context.input + ": illegal command");
 
 	}
 

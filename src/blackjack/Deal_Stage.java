@@ -40,8 +40,12 @@ public class Deal_Stage implements State{
 			context.stat.print_statistics(player1.getBalance());
 
 		}
+		
+		else if(context.input == 'a')
+			System.out.println("ad: illegal command");
+			
 		else
-			System.out.println(context.input+": invalid input");
+			System.out.println(context.input + ": illegal command");
 
 	}
 }

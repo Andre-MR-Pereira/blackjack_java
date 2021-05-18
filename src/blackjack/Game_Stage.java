@@ -55,7 +55,7 @@ class Game_Stage implements State {
 			context.stat.print_statistics(player1.getBalance());
 		}
 		else
-			System.out.println(context.input+": invalid input");
+			System.out.println(context.input + ": invalid input");
 
 	}
 

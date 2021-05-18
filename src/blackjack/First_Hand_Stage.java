@@ -76,7 +76,7 @@ class First_Hand_Stage implements State {
 			if(player1.hands.get(hand).cards[0].handValue() == player1.hands.get(hand).cards[1].handValue() && player1.hands.size() < 4) {
 				if(player1.hands.get(0).cards[0].handValue() == 1) {
 					context.setFinishSplit(true);
-					if(context.input != 'p') System.out.println(context.input+": invalid input");
+					if(context.input != 'p') System.out.println(context.input + ": invalid input");
 					else {
 						finish_split(context, player1, casino, s, b, hl, a5, hand, debugger);
 					}
@@ -93,7 +93,7 @@ class First_Hand_Stage implements State {
 					
 			}
 			else {
-				System.out.println(context.input+": invalid input");
+				System.out.println(context.input + ": invalid input");
 			}
 			
 			
