@@ -56,6 +56,7 @@ public class Chips {
 	
 	/**
 	 * Imprime quantas fichas estão disponíveis
+	 * @return Descrição das fichas disponíveis
 	 */
 	public String toString() {
 		return "Blacks="+this.blacks+"|Greens="+this.greens+"|Reds="+this.reds+"|Whites="+this.whites;

@@ -43,7 +43,6 @@ public class Basic implements Strategies {
 	 * @see PairTable#play
      */
     public int advice(Hand player, Card card_dealer, Shoe shoe, Player p) {
-    	
         if(player.handType() == 2) {
         	if(p.hands.size() < 4)
         		return pair_tb.play(player, card_dealer);
@@ -52,7 +51,6 @@ public class Basic implements Strategies {
         }
         else if(player.handType() == 1)
             return soft_tb.play(player, card_dealer);
-        
         else if(player.handType() == 0)
             return hard_tb.play(player, card_dealer);
         
@@ -101,6 +99,13 @@ public class Basic implements Strategies {
      * @return caracter para jogar
      */
     public char make_advice(int res) {
+    	/*
+    	 * h -- hit
+    	 * s -- stand
+    	 * p -- split
+    	 * 2 -- Double
+    	 * u -- Surrender
+    	 */
 		switch(res) {
 			case 0:
 				return 'h';

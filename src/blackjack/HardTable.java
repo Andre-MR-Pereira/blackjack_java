@@ -59,7 +59,6 @@ public class HardTable extends Table{
         
         line = player.handTotal() - 5;
         if(line < 0) {
-            //System.out.println("No play recommended. Wrong hand provided");
             return 0;
         }
         
@@ -69,7 +68,6 @@ public class HardTable extends Table{
             column = card_dealer.handValue()-2;
 
         if(column < 0) {
-            //System.out.println("No play recommended. Wrong hand provided");
             return -1;
         }
         

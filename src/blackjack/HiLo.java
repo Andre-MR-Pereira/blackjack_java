@@ -42,7 +42,6 @@ public class HiLo implements Strategies {
 		return strat;
 	}
 	
-	// Updates the running count based on the card dealt
 	/**
 	 * Atualiza o contador do Hi Low baseado na carta que foi retirada na jogada.
 	 * @param c carta que foi retirada do shoe.
@@ -68,6 +67,14 @@ public class HiLo implements Strategies {
 	 * @param res estratégia a ser tomada.
 	 */
 	public void print_advice(int res) {
+		/*
+    	 * 1 -- hit
+    	 * 2 -- stand
+    	 * 3 -- split
+    	 * 4 -- surrender
+    	 * 5 -- insurance
+    	 * 6 -- split
+    	 */
 		switch(res) {
 			case 1:
 				System.out.println("hi-lo	hit");
@@ -98,6 +105,14 @@ public class HiLo implements Strategies {
 	 * @return o caracter da jogada que pode ser aplicado para continuar o jogo.
 	 */
 	public char make_advice(int res) {
+		/*
+    	 * h -- hit
+    	 * s -- stand
+    	 * p -- split
+    	 * 2 -- Double
+    	 * u -- Surrender
+    	 * i -- Insurance
+    	 */
 		switch(res) {
 			case 1:
 				return 'h';

@@ -35,7 +35,6 @@ public abstract class Person implements BlackJackPlayer {
 		hands.add(new Hand());
 	}
 	
-	// Returns size of hand i
 	/**
 	 * Retorna as cartas que a mão escolhida têm.
 	 * @param i Mão a ser analisada.
