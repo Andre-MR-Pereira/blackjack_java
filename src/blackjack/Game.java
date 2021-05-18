@@ -3,7 +3,7 @@ package blackjack;
 import java.util.List;
 
 
-public class game {
+public class Game {
 	/**
 	 * Começa e chama o estado usando o modo iterativo
 	 * @see StateContext

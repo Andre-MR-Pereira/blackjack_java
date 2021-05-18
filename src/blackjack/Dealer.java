@@ -15,7 +15,7 @@ public class Dealer extends Person{
 	}
 	
 	// Dealer's turn can be fully automatic
-	public void dealerTurn(Shoe shoe,statistics stat) {
+	public void dealerTurn(Shoe shoe,Statistics stat) {
 		boolean flag_BJ = false;
 		if(hands.get(0).handTotal() == 21) {
 			flag_BJ = true;

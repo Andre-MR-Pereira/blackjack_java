@@ -11,7 +11,7 @@ public class StateContext {
 	int bet, temp_bet;
 	int hand;
 	Scanner in = new Scanner(System.in);
-	statistics stat;
+	Statistics stat;
     boolean finish_split;
     public StateContext(int min_bet,int balance) {
         state = new Betting_Stage();
@@ -22,7 +22,7 @@ public class StateContext {
         sim_ad = true;
         shuffle_flag = false;
         holder = null;
-        stat = new statistics(balance);
+        stat = new Statistics(balance);
         finish_split=false;
     }
     

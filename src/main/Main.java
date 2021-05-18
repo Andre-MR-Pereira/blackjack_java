@@ -11,7 +11,7 @@ import java.util.Scanner; // Import the Scanner class to read text files
 public class Main {
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		game g = new game();
+		Game g = new Game();
 		error_catcher er = new error_catcher();
 		int min_bet, max_bet, balance, shoe, shuffle, s_shuffle;
 		Shoe debugShoe=null;
