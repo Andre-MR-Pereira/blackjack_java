@@ -105,7 +105,7 @@ public class Main {
             	g.debugstart(min_bet, max_bet, balance, debugShoe, moves);
 
             } catch (Exception e) {
-                System.err.println("Arguments " + args[1]+ ", " + args[2]+ ", "+  args[3]+ ", " + args[4]+ " and " + args[5]+ " must be correct.");
+                System.err.println("An error on debug was catched.");
                 System.exit(1);
             }
 		}

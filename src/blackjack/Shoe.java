@@ -43,8 +43,8 @@ public class Shoe{
                 }
                 
                 String[] fields =data.split(" ");
-                this.ndecks = (int)Math.ceil(fields.length/52);
-                if(this.ndecks<0 || this.ndecks>8) {
+                this.ndecks = (int)Math.ceil((double)fields.length/(double)52);
+                if(this.ndecks<1 || this.ndecks>8) {
                 	System.out.println("The amount of decks in the shoe isn´t correct");
 					System.exit(1);
                 }
@@ -118,19 +118,14 @@ public class Shoe{
 	
 	// Method that returns the dealt card
 	public Card deal() {
-		if(currCard < 52*ndecks)
-		{
+		try {
 			Card curr =  shoe[currCard++];
 			return(curr);
-		}
-		else
-		{
-			// Error
+		}catch(Exception e) {
 			System.out.println("Out of cards.");
-			return(null);
+			System.exit(1);
 		}
-		
-		
+		return(null);	
 	}
 	
 	// Check if the shoe needs to be re-shuffled
