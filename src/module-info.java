@@ -1,2 +1,0 @@
-module Blackjack_java {
-}
