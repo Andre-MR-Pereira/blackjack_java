@@ -43,14 +43,23 @@ public class Basic implements Strategies {
 	 * @see PairTable#play
      */
     public int advice(Hand player, Card card_dealer, Shoe shoe, Player p) {
+    	/**
+    	 * Avalia qual o tipo da mão do jogador
+    	 * @see Hand#handType
+    	 */
         if(player.handType() == 2) {
+        	/**
+        	 * Quando o jogador tem um par, se não for possível dar mais split, verifica-se a HardTable em vez da PairTable
+        	 */
         	if(p.hands.size() < 4)
         		return pair_tb.play(player, card_dealer);
         	else
         		return hard_tb.play(player, card_dealer);
         }
+        
         else if(player.handType() == 1)
             return soft_tb.play(player, card_dealer);
+        
         else if(player.handType() == 0)
             return hard_tb.play(player, card_dealer);
         

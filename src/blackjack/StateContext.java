@@ -295,6 +295,8 @@ public class StateContext {
         		player1.insurance_win();
         		System.out.println("player wins insurance");
         	}
+        	else
+        		System.out.println("player looses insurance");
         		
         	
         	player1.setInsurance(0);
@@ -327,6 +329,7 @@ public class StateContext {
 		hl.update_counter(temp);
 		a5.update_counter(temp);
 		System.out.println(casino.handStr(false));
+		checkInsurance(player1, casino);
 		reset(player1, casino, s, hl, a5, debugger);
     }
     

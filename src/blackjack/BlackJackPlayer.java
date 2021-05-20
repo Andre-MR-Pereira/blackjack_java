@@ -12,7 +12,7 @@ public interface BlackJackPlayer {
 	 * @param c carta nova fornecida.
 	 * @param hand_number mão para a qual será fornecida a carta.
 	 */
-	public void hit(Card c,int hand_number);
+	public void hit(Card c, int hand_number);
 	
 	/**
 	 * Retorna o valor mais alto possível da mão fornecida.

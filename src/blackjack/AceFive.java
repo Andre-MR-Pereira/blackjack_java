@@ -1,13 +1,40 @@
 package blackjack;
 
+/**
+ * Objeto que implementa a estratégia Ace-Five
+ */
 public class AceFive implements Strategies{
 
-	int a5_counter;
+	/**
+	 * Contador da estratégia em questão.
+	 * Vai sendo atualizado ao longo da execução
+	 */
+	private int a5_counter;
+	
+	/**
+	 * Aposta mínima que pode ser realizada pelo jogador
+	 */
 	int min_bet;
+	
+	/**
+	 * Aposta máxima que pode ser realizada pelo jogador
+	 */
 	int max_bet;
+	
+	/**
+	 * Valor apostado pelo jogador na ronda a ser jogada
+	 * (ou aposta mais recente feita pelo jogador)
+	 */
 	int curr_bet;
 	
-	// Constructor
+	/**
+     * Construtor da estratégia Ace-Five.
+     * Inicializa todos os atributos:
+     * @see a5_counter
+	 * @see min_bet
+	 * @see max_bet
+	 * @see curr_bet
+     */
 	public AceFive(int min, int max) {
 		this.a5_counter = 0;
 		this.min_bet = min;
@@ -15,39 +42,81 @@ public class AceFive implements Strategies{
 		this.curr_bet = min;
 	}
 	
-	// Resets the a5 counter
+	/**
+	 * Método que faz reset ao contador da estratégia em questão (ace-five)
+	 * Normalmente utilizado quando o shoe é baralhado.
+	 * @see a5_counter
+	 */
 	public void reset_count() {
 		this.a5_counter = 0;
 	}
 	
-	// Updates the ace-five counter based on the card dealt
+	/**
+	 * Método que atualiza o contador da estratégia Ace-Five
+	 * Utilizado sempre que o jogador tem informação de uma nova carta
+	 * @see a5_counter
+	 * @param c Carta com a qual o contador é atualizado.
+	 */
 	public void update_counter(Card c) {
-		if(c.getCardvalue() == 5) {
+		/**
+		 * Quando a carta revelada é um 5, soma-se um ao contador
+		 */
+		if(c.getCardvalue() == 5)
 			a5_counter++;
-		} else if(c.getCardvalue() == 1) {
+		
+		/**
+		 * Quando a carta revelada é um ás, subtrai-se um ao contador
+		 */
+		else if(c.getCardvalue() == 1)
 			a5_counter--;
-		}
 	}
 	
+	/**
+	 * Método que atualiza a aposta mais recente do jogador:
+	 * @see curr_bet
+	 * @param b Valor que vai ser atribuido ao atributo curr_bet.
+	 */
 	public void update_bet(int b) {
 		this.curr_bet = b;
 	}
 	
+	/**
+	 * Decide qual o valor que o jogador deve apostar, consoante a estratégia Ace-Five e consoante o contador
+	 * (nenhum dos parâmetros do método é utilizado, pelo que normalmente se utiliza null)
+	 * @param player mão do jogador.
+     * @param card_dealer carta conhecida do Dealer.
+     * @param shoe shoe ativo no jogo.
+     * @param p jogador->Serve para saber quantas maos o jogador tem em jogo.
+     * @return indicador para qual o conselho a ser fornecido.
+     * @see a5_counter
+	 */
 	public int advice(Hand player, Card card_dealer, Shoe shoe, Player p) {
 		int res = 0;
 		
+		/**
+		 * Quando o contador é maior ou igual que 2, duplica-se a aposta (até ao máximo)
+		 */
 		if(a5_counter >= 2) {
 			if(curr_bet*2 >= max_bet)
 				res = 2;
 			else
 				res = 1;
 		}
+		
+		/**
+		 * Quando o contador é menor ou igual a 1, aposta-se o mínimo
+		 */
 		else if(a5_counter <= 1)
 			res = -1;
 				
 		return res;
 	}
 	
+	/**
+     * Imprime o conselho da estratégia ace-five para a consola.
+     * (utilizado no modo interativo)
+     * @param res indicador do conselho a ser impresso.
+     */
 	public void print_advice(int res) {
 		switch(res) {
 			case 2:
@@ -64,6 +133,13 @@ public class AceFive implements Strategies{
 		}
 	}
 	
+	/**
+     * Em vez de dar print, retorna a aposta que deve ser realizada (segundo o contador da estratégia)
+     * (utilizado no modo de simulação)
+     * @param res indicador da jogada a ser escolhida
+     * @return aposta que deve ser tomada
+     * @see a5_counter
+     */
 	public int make_advice(int res) {
 		int value = 0;
 		

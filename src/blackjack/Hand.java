@@ -1,14 +1,37 @@
 package blackjack;
 
+/**
+ * Objeto que representa uma mão de blackjack
+ * @see Card
+ */
 public class Hand {
+	
 	/**
-	 * Objeto que guarda a mão de um jogador
-	 * @see Card
+	 * Vetor de cartas da mão
 	 */
 	Card[] cards;
+	
+	/**
+	 * Aposta da mão em questão
+	 */
 	double bet;
+	
+	/**
+	 * Número de cartas na mão
+	 */
 	int ncards;
+	
+	/**
+	 * Aposta em termos de chips
+	 */
 	Chips chips;
+	
+	/**
+	 * Atributo auxiliar que indica se a mão ganha, perde ou empata
+	 * 0 = loss
+	 * 1 = win
+	 * outro = push
+	 */
 	int win;
 	
 	/**
@@ -29,7 +52,7 @@ public class Hand {
 	 * @param card carta que faz parte da mão
 	 * @param bet aposta que é realizada nessa mão
 	 */
-    public Hand(Card card,double bet) {    //splitting hands
+    public Hand(Card card, double bet) {    //splitting hands
         cards = new Card[12];
         cards[0]=card;
         ncards = 1;
@@ -188,42 +211,4 @@ public class Hand {
 		return this.toString(false);
 	}
 	
-	/*
-	public static void main(String[] args){
-        Hand hand1=new Hand();
-        Hand hand2=new Hand(new Card(1,1),5);
-        Hand hand3=new Hand();
-        Hand hand4=new Hand();
-        hand3.addCard(new Card(1,1));
-        hand3.addCard(new Card(1,1));
-        hand4.addCard(new Card(7,1));
-        hand4.addCard(new Card(7,1));
-        hand1.setBet(1);
-        hand1.setBet(5);
-        hand1.setBet(0.5);
-        hand1.addCard(new Card(10,1));
-        hand1.addCard(new Card(5,1));
-        System.out.println("Tamanho mao");
-        System.out.println(hand1.handSize());
-        System.out.println(hand2.handSize());
-        System.out.println("Valor mao");
-        System.out.println(hand1.handTotal());
-        System.out.println(hand2.handTotal());
-        System.out.println("Split not working");
-        hand1.splitHand();
-        System.out.println(hand1.handTotal());
-        hand2.addCard(new Card(9,1));
-        hand2.addCard(new Card(3,1));
-        System.out.println(hand2.handTotal());
-        System.out.println("Tipos de mao");
-        System.out.println(hand1.handType());
-        System.out.println(hand2.handType());
-        System.out.println(hand3.handType());
-        System.out.println(hand4.handType());
-        System.out.println("Split working");
-        System.out.println(hand4.handTotal());
-        hand4.splitHand();
-        System.out.println(hand4.handTotal());
-    }
-    */
 }

@@ -61,11 +61,4 @@ public class Chips {
 	public String toString() {
 		return "Blacks="+this.blacks+"|Greens="+this.greens+"|Reds="+this.reds+"|Whites="+this.whites;
 	}
-	
-	public static void main(String[] args){
-		Chips pocket=new Chips(0,0,0,0);
-		pocket.convert_chips(131);
-		System.out.println(pocket.toString());
-		pocket.validate_bet(4.6);
-	}
 }
