@@ -3,7 +3,7 @@ package blackjack;
 /**
  * Objeto que implementa a estratégia Ace-Five
  */
-public class AceFive implements Strategies{
+public class AceFive implements Strategies {
 
 	/**
 	 * Contador da estratégia em questão.
@@ -29,11 +29,7 @@ public class AceFive implements Strategies{
 	
 	/**
      * Construtor da estratégia Ace-Five.
-     * Inicializa todos os atributos:
-     * @see a5_counter
-	 * @see min_bet
-	 * @see max_bet
-	 * @see curr_bet
+     * Inicializa todos os atributos.
      */
 	public AceFive(int min, int max) {
 		this.a5_counter = 0;
@@ -45,7 +41,6 @@ public class AceFive implements Strategies{
 	/**
 	 * Método que faz reset ao contador da estratégia em questão (ace-five)
 	 * Normalmente utilizado quando o shoe é baralhado.
-	 * @see a5_counter
 	 */
 	public void reset_count() {
 		this.a5_counter = 0;
@@ -53,8 +48,7 @@ public class AceFive implements Strategies{
 	
 	/**
 	 * Método que atualiza o contador da estratégia Ace-Five
-	 * Utilizado sempre que o jogador tem informação de uma nova carta
-	 * @see a5_counter
+	 * Utilizado sempre que o jogador tem informação de uma nova carta.
 	 * @param c Carta com a qual o contador é atualizado.
 	 */
 	public void update_counter(Card c) {
@@ -72,8 +66,7 @@ public class AceFive implements Strategies{
 	}
 	
 	/**
-	 * Método que atualiza a aposta mais recente do jogador:
-	 * @see curr_bet
+	 * Método que atualiza a aposta mais recente do jogador.
 	 * @param b Valor que vai ser atribuido ao atributo curr_bet.
 	 */
 	public void update_bet(int b) {
@@ -88,7 +81,6 @@ public class AceFive implements Strategies{
      * @param shoe shoe ativo no jogo.
      * @param p jogador->Serve para saber quantas maos o jogador tem em jogo.
      * @return indicador para qual o conselho a ser fornecido.
-     * @see a5_counter
 	 */
 	public int advice(Hand player, Card card_dealer, Shoe shoe, Player p) {
 		int res = 0;
@@ -138,7 +130,6 @@ public class AceFive implements Strategies{
      * (utilizado no modo de simulação)
      * @param res indicador da jogada a ser escolhida
      * @return aposta que deve ser tomada
-     * @see a5_counter
      */
 	public int make_advice(int res) {
 		int value = 0;

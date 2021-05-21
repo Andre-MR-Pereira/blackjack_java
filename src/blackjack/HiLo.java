@@ -1,17 +1,32 @@
 package blackjack;
 
+/**
+ * Objeto que implementa a estratégia Hi-Lo.
+ */
 public class HiLo implements Strategies {
 	/**
-	 * Objeto que implementa a estratégia Hi Low.
+	 * Count corrente que vai sendo atualizado ao longo do jogo
 	 */
 	int running_count;
-	int ndecks;
+	
+	/**
+	 * Count verdadeiro, que é calculado a partir do count corrente
+	 * @see HiLo#update_true
+	 */
 	double true_count;
+	
+	/**
+	 * Variável auxiliar para o modo de simulação
+	 * Indica se o modo de simulação deve usar a estratégia HiLo ou Basic:
+	 * 0 significa que não se está no modo simulação
+	 * 1 significa que se usa a estratégia HiLo
+	 * 2 significa que não se usa a estratégia HiLo (e sim a Basic)
+	 */
 	int strat;
 	
 	/**
 	 * Construtor que inicializa os parametros de contagem da 
-	 * estratégia Hi Low.
+	 * estratégia Hi Lo.
 	 */
 	public HiLo() {
 		this.running_count = 0;
@@ -20,7 +35,7 @@ public class HiLo implements Strategies {
 	}
 	
 	/**
-	 * Dá reset ao contador do Hi Low.
+	 * Dá reset ao contador do Hi Lo.
 	 */
 	public void reset_count() {
 		this.running_count = 0;
@@ -43,7 +58,7 @@ public class HiLo implements Strategies {
 	}
 	
 	/**
-	 * Atualiza o contador do Hi Low baseado na carta que foi retirada na jogada.
+	 * Atualiza o contador do Hi Lo baseado na carta que foi retirada na jogada.
 	 * @param c carta que foi retirada do shoe.
 	 */
 	public void update_counter(Card c) {
@@ -55,7 +70,7 @@ public class HiLo implements Strategies {
 	}
 	
 	/**
-	 * Atualiza o contador com que são feitas as decisões no Hi Low.
+	 * Atualiza o contador com que são feitas as decisões no Hi Lo.
 	 * @param s shoe que está a ser usado
 	 */
 	public void update_true(Shoe s) {
@@ -132,7 +147,7 @@ public class HiLo implements Strategies {
 	}
 	
 	/**
-	 * Escolhe qual a jogada a ser realizada pela estratégia Hi Low consoante
+	 * Escolhe qual a jogada a ser realizada pela estratégia Hi Lo consoante
 	 * a mão do jogador, a carta conhecida do dealer e o shoe em jogo.
 	 * @param player mão a ser analisada nesta jogada
 	 * @param card_dealer carta conhecida do Dealer

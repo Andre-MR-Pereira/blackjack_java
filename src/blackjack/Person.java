@@ -2,9 +2,15 @@ package blackjack;
 
 import java.util.ArrayList;
 
+/**
+ * Objeto abstrato que representa uma pessoa no jogo de blackjack.
+ * Contém assim tudo em comum entre o dealer e o jogador em si.
+ */
 public abstract class Person implements BlackJackPlayer {
 	/**
-	 * Cria o objeto de um jogador regular de blackjack
+	 * ArrayList de Mãos.
+	 * No caso do Dealer só vai ter uma mão.
+	 * Enquanto o jogador pode ter até 4 mãos.
 	 */
 	ArrayList<Hand> hands= new ArrayList<Hand>();
 	

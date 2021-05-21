@@ -1,5 +1,8 @@
 package blackjack;
 
+/**
+ * Interface que representa qualquer estratégia
+ */
 public interface Strategies {
 	/**
 	 * Escolhe o conselho a ser fornecido para a jogada em causa

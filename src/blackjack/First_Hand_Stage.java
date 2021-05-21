@@ -23,7 +23,7 @@ class First_Hand_Stage implements State {
                 player1.hit(temp, hand);
                 hl.update_counter(temp);
                 a5.update_counter(temp);
-                if(temp.handValue()==1&&player1.hands.size() < 3) breaker =true;
+                if(temp.handValue()==1&&player1.hands.size() < 4) breaker =true;
                 System.out.println(player1.handStr(hand));    
             }
             

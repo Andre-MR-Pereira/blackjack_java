@@ -2,6 +2,21 @@ package blackjack;
 
 import java.util.List;
 
+/**
+ * Classe que corre o jogo.
+ * Dependendo do modo escolhido, corre um dos métodos desta classe.
+ * Dentro de qualquer um deles, os objetos essenciais ao jogo de blackjack são criados.
+ * Faz-se um ciclo onde corre o flow do jogo.
+ * @see StateContext
+ * 
+ * A única diferença é a maneira como se escolhe o input em cada modo:
+ * Modo interativo: O input é lido da consola
+ * @see StateContext#read_String
+ * Modo de debug: O input é lido do ficheiro
+ * @see StateContext#read_File
+ * Modo de simulação: O input vem de um advice da estratégia especificada
+ * @see StateContext#sim_input
+ */
 
 public class Game {
 	/**
@@ -30,6 +45,7 @@ public class Game {
 			}
 		}
 	}
+	
 	/**
 	 * Começa e chama o estado usando o modo debug
 	 * @see StateContext
@@ -55,6 +71,7 @@ public class Game {
 			}
 		}
 	}
+	
 	/**
 	 * Começa e chama o estado usando o modo de simulação
 	 * @see StateContext
@@ -92,7 +109,6 @@ public class Game {
 					flow.setvalid(true);
 			}
 		}
-		
 	}
 	
 }

@@ -1,14 +1,34 @@
 package blackjack;
 import java.lang.Math;
 
+/**
+ * Objeto para traduzir um balanço monetário
+ * em fichas de jogo do casino
+ */
 public class Chips {
+	
 	/**
-	 * Objeto para traduzir um balanço monetário
-	 * em fichas de jogo do casino
+	 * Número de fichas pretas.
+	 * Cada ficha preta vale 100$.
 	 */
 	int blacks;
+	
+	/**
+	 * Número de fichas verde.
+	 * Cada ficha verde vale 25$.
+	 */
 	int greens;
+	
+	/**
+	 * Número de fichas vermelhas.
+	 * Cada ficha vermelha vale 5$.
+	 */
 	int reds;
+	
+	/**
+	 * Número de fichas brancas.
+	 * Cada ficha branca vale 1$.
+	 */
 	int whites;
 	
 	/**
@@ -19,10 +39,10 @@ public class Chips {
 	 * @param whites fichas brancas de valor 1
 	 */
 	public Chips(int blacks,int greens, int reds,int whites) {
-		this.blacks=blacks;
-		this.greens=greens;
-		this.reds=reds;
-		this.whites=whites;
+		this.blacks = blacks;
+		this.greens = greens;
+		this.reds = reds;
+		this.whites = whites;
 	}
 	
 	/**
@@ -30,10 +50,10 @@ public class Chips {
 	 * @param money dinheiro a ser convertido
 	 */
 	public void convert_chips(double money) {
-		this.blacks=(int) Math.floor(money/100);
-		this.greens=(int) Math.floor((money-100*this.blacks)/25);
-		this.reds=(int) Math.floor((money-100*this.blacks-25*this.greens)/5);
-		this.whites=(int)money-100*this.blacks-25*this.greens-5*this.reds;
+		this.blacks = (int) Math.floor(money/100);
+		this.greens = (int) Math.floor((money - 100*this.blacks)/25);
+		this.reds = (int) Math.floor((money - 100*this.blacks - 25*this.greens)/5);
+		this.whites = (int) money - 100*this.blacks - 25*this.greens - 5*this.reds;
 	}
 	
 	/**
@@ -46,12 +66,11 @@ public class Chips {
 		int greens=(int) Math.floor((bet-100*blacks)/25);
 		int reds=(int)Math.floor((bet-100*blacks-25*greens)/5);
 		int whites=(int)bet-100*blacks-25*greens-5*reds;
-		if(bet==100*blacks+25*greens+5*reds+whites) {
-			return true;
-		}else {
-			return false;
-		}
 		
+		if(bet == 100*blacks + 25*greens + 5*reds + whites)
+			return true;
+		else
+			return false;	
 	}
 	
 	/**

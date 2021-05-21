@@ -1,6 +1,10 @@
 package blackjack;
 
+/**
+ * Classe abstata que representa qualquer tabela de jogadas
+ */
 public abstract class Table {
+	
 	/**
 	 * Matriz que guarda a jogada a ser efetuada para cada caso, de cada estratégia.
 	 */

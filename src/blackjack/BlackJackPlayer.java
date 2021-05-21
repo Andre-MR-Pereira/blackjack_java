@@ -1,11 +1,12 @@
 package blackjack;
 
+/**
+ * Interface que representa uma entidade no blackjack (jogador ou dealer).
+ * Para existir um jogador de blackjack que seja extensível, será sempre
+ * necessário que seja possível pedir uma carta, saber o valor da sua mão
+ * e limpar a sua mão.
+ */
 public interface BlackJackPlayer {
-	/**
-	 * Para existir um jogador de blackjack que seja extensível, será sempre
-	 * necessário que seja possível pedir uma carta,saber o valor da sua mão
-	 * e limpar a sua mão.
-	 */
 	
 	/**
 	 * Permite pedir uma carta para a mão desejada.

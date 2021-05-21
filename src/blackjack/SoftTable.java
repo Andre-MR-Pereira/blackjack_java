@@ -1,9 +1,14 @@
 package blackjack;
 
-public class SoftTable extends Table{
+/**
+ * Tabela de opções para uma mao do tipo soft
+ * (Tem um ás que vale 10 pontos)
+ */
+public class SoftTable extends Table {
 
 	/**
-	 * Tabela de opções para uma mao do tipo soft
+	 * Construtor da SoftTable.
+	 * Constroi a tabela de acordo com a indicada no enunciado.
 	 */
 	public SoftTable() {
         plays= new int[9][10];
@@ -74,15 +79,5 @@ public class SoftTable extends Table{
         }
         
     }
-
-	/*
-	public static void main(String[] args){
-        SoftTable soft_tb=new SoftTable();
-        Hand hand=new Hand();
-        hand.addCard(new Card(10,1));
-        hand.addCard(new Card(1,1));
-        soft_tb.play(hand, new Card(1,1));
-    }
-    */
 	
 }

@@ -1,8 +1,14 @@
 package blackjack;
 
-public class HardTable extends Table{
+/**
+ * Tabela de opções para uma mao do tipo hard
+ * (sem áses ou com um ás que tem valer 1 obrigatóriamente)
+ */
+public class HardTable extends Table {
+	
 	/**
-	 * Tabela de opções para uma mao do tipo hard
+	 * Construtor da HardTable.
+	 * Constroi a tabela de acordo com a indicada no enunciado.
 	 */
 	public HardTable() {
         plays = new int[17][10];
@@ -91,15 +97,4 @@ public class HardTable extends Table{
         }
         
     }
-	
-	/*
-	public static void main(String[] args){
-        HardTable hard_tb=new HardTable();
-        Hand hand=new Hand();
-        hand.addCard(new Card(5,1));
-        hand.addCard(new Card(5,1));
-        hard_tb.play(hand, new Card(9,1));
-    }
-    */
-	
 }

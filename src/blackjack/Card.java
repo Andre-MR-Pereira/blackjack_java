@@ -45,7 +45,6 @@ public class Card {
     /**
      * Método para obter a string da face da carta, consoante o seu atributo value
      * @return String com a face da carta
-     * @see value
      */
 	public String getCardface() {
 
@@ -73,7 +72,6 @@ public class Card {
 	/**
      * Método para obter a string do naipe da carta, consoante o seu atributo value
      * @return String com o naipe da carta
-     * @see value
      */
 	public String getCardsuit() {
 

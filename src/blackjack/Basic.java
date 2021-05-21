@@ -1,9 +1,9 @@
 package blackjack;
 
+/**
+ * Objeto que implementa a estratégia básica.
+ */
 public class Basic implements Strategies {
-	/**
-	 * Objeto que implementa a estratégia básica.
-	 */
 	
 	/**
 	 * Variáveis que implementam cada uma das tabelas possíveis

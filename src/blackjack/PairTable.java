@@ -1,9 +1,13 @@
 package blackjack;
 
-public class PairTable extends Table{
+/**
+ * Tabela de opções para uma mao do tipo par
+ */
+public class PairTable extends Table {
 
 	/**
-	 * Tabela de opções para uma mao do tipo pair
+	 * Construtor da PairTable.
+	 * Constroi a tabela de acordo com a indicada no enunciado.
 	 */
 	public PairTable() {
         plays= new int[10][10];
@@ -89,14 +93,4 @@ public class PairTable extends Table{
         
     }
 	
-	/*
-	public static void main(String[] args){
-        PairTable pair_tb=new PairTable();
-        Hand hand=new Hand();
-        hand.addCard(new Card(1,1));
-        hand.addCard(new Card(1,1));
-        pair_tb.play(hand, new Card(1,1));
-    }
-    */
-
 }

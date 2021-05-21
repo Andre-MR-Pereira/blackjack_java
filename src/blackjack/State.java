@@ -1,11 +1,13 @@
 package blackjack;
 
+/**
+ * Interface do estado do jogo.
+ * O estado vai mudando ao longo do jogo através desta interface.
+ * Para existir um estado de jogo, será sempre
+ * necessário receber as diferentes partes que 
+ * contextualizam a jogada em quetão.
+ */
 interface State {
-	/**
-	 * Para existir um estado de jogo, será sempre
-	 * necessário que seja possível receberas diferentes partes que 
-	 * contextualizam a jogada em quetão e partir dela.
-	 */
 	
 	/**
 	 * Recebe os parâmetros que definem a jogada e toma uma decisão para avançar no jogo.

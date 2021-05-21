@@ -122,13 +122,13 @@ public class StateContext {
     				stat.update_game_result(2);
     			}
     			
-    			else if (player1.hands.get(i).ncards == 2 && player1.hands.get(i).ncards < casino.hands.get(0).ncards) {
+    			else if (player1.hands.get(i).ncards == 2 && 2 < casino.hands.get(0).ncards) {
     				player1.hands.get(i).setWin(1);
-					System.out.println(player1.print_win(i));
 					if(player1.hands.size() < 2 || player1.hands.get(i).cards[1].handValue() == 1)  
 						player1.update_bj(i);
 					else 
 						player1.update_win(i);
+					System.out.println(player1.print_win(i));
 					stat.update_game_result(1);
 					if(bet + a5.min_bet > a5.max_bet)
     					temp_bet = a5.max_bet;
@@ -136,7 +136,7 @@ public class StateContext {
     					temp_bet = bet + a5.min_bet;
     			}
     			
-    			else if (casino.hands.get(0).ncards == 2 && player1.hands.get(i).ncards < casino.hands.get(0).ncards) {
+    			else if (casino.hands.get(0).ncards == 2 && player1.hands.get(i).ncards > 2) {
     				player1.hands.get(i).setWin(0);
 					System.out.println(player1.print_win(i));
 					stat.update_game_result(0);
