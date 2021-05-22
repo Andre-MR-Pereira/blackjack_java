@@ -1,5 +1,0 @@
--i 5 50 250 8 60
-
--d 5 50 250 src\main\shoe-file.txt src\main\cmd-file.txt
-
--s 5 50 250 8 60 5 BS-AF
