@@ -34,7 +34,7 @@ public class Dealer extends Person {
 	
 	/**
 	 * Método que automatiza o turno do dealer
-	 * @param shoe 
+	 * @param shoe Shoe.
 	 * @param stat Objeto das estatísticas para serem atualizadas
 	 */
 	public void dealerTurn(Shoe shoe, Statistics stat) {

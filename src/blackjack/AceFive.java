@@ -30,6 +30,8 @@ public class AceFive implements Strategies {
 	/**
      * Construtor da estratégia Ace-Five.
      * Inicializa todos os atributos.
+     * @param min aposta mínima.
+     * @param max aposta máxima.
      */
 	public AceFive(int min, int max) {
 		this.a5_counter = 0;

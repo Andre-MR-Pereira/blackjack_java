@@ -73,7 +73,7 @@ public class Game {
 	}
 	
 	/**
-	 * Começa e chama o estado usando o modo de simulação
+	 * Começa e chama o estado usando o modo de simulação.
 	 * @see StateContext
 	 * @param min_bet aposta mìnima
 	 * @param max_bet aposta màxima
@@ -81,6 +81,7 @@ public class Game {
 	 * @param shoe número de decks
 	 * @param s_number número de shuffles até acabar
 	 * @param strats estratégia empregue na simulação
+	 * @param shuffle percentagem do shoe para dar shuffle
 	 */
 	public void simulationstart(int min_bet, int max_bet, int balance, int shoe, int shuffle, int s_number, String strats) {
 		Shoe s = new Shoe(shoe, shuffle);

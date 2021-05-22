@@ -124,7 +124,7 @@ public class Hand {
 	
 	/**
 	 * Retorna quantas cartas existem numa mão
-	 * @return
+	 * @return cartas existentes na mão.
 	 */
 	public int handSize() {
 		return ncards;

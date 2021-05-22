@@ -175,7 +175,7 @@ public class Player extends Person {
 	/**
 	 * Método que executa a side rule de double down na mão do jogador escolhida
 	 * Retira do balance a bet anterior (porque duplica-se a bet)
-	 * @param hand
+	 * @param hand mão que faz o double down.
 	 */
 	public void doubleDown(Hand hand){
 		balance -= hand.bet;

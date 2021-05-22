@@ -10,7 +10,7 @@ public interface Strategies {
 	 * @param card_dealer carta conhecida do dealer
 	 * @param shoe shoe ativo do jogo
 	 * @param p jogador a ser analisado
-	 * @return
+	 * @return retorna o indicador dessa estratégia.
 	 */
 	public int advice(Hand player, Card card_dealer, Shoe shoe, Player p);
 	
